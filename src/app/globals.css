@@ -1,26 +1,87 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #f9f9f7;
+  --foreground: #1a1c1b;
+  --accent: #b51c0a;
+  --surface: #ffffff;
+  --radius-shell: 3rem;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-accent: var(--accent);
+  --color-surface: var(--surface);
+  --radius-shell: var(--radius-shell);
+  --font-sans: var(--font-molengo);
+  --font-serif: var(--font-lora);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  width: 100%;
+  position: relative;
+}
+
+body {
+  width: 100%;
+  overflow-x: clip;
+  position: relative;
+}
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: clip;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-molengo), "Segoe UI", sans-serif;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.font-title {
+  font-family: var(--font-arvo), Georgia, serif;
+}
+
+.font-subtitle {
+  font-family: var(--font-lora), "Times New Roman", serif;
+}
+
+.font-body {
+  font-family: var(--font-molengo), "Segoe UI", sans-serif;
+}
+
+a {
+  text-decoration: none;
+}
+
+.section-shell {
+  border-radius: var(--radius-shell);
+  padding: clamp(1.5rem, 3vw, 4rem);
+}
+
+.eyebrow {
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
 }

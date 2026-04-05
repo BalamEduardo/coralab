@@ -1,0 +1,173 @@
+"use client";
+
+import { useEffect, useId, useState } from "react";
+import { ArrowUpRight, Menu, X } from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
+
+import { cn } from "@/lib/utils";
+
+type NavItem = {
+  label: string;
+  href: `#${string}`;
+};
+
+interface NavbarProps {
+  items?: NavItem[];
+  ctaHref?: `#${string}`;
+  className?: string;
+}
+
+const defaultItems: NavItem[] = [
+  { label: "Trabajo", href: "#trabajo" },
+  { label: "Nosotros", href: "#nosotros" },
+  { label: "Servicios", href: "#servicios" },
+];
+
+const MENU_EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
+
+export function Navbar({
+  items = defaultItems,
+  ctaHref = "#contact",
+  className,
+}: NavbarProps) {
+  const [isOpen, setIsOpen] = useState(false);
+  const menuId = useId();
+
+  useEffect(() => {
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setIsOpen(false);
+      }
+    };
+
+    window.addEventListener("keydown", handleEscape);
+    return () => window.removeEventListener("keydown", handleEscape);
+  }, []);
+
+  return (
+    <header className="pointer-events-none fixed inset-x-0 top-4 z-50 flex flex-col items-center px-4 sm:top-6">
+      <motion.nav
+        aria-label="Navegacion principal"
+        animate={{
+          borderRadius: isOpen ? 32 : 999,
+          y: isOpen ? 2 : 0,
+        }}
+        transition={{ duration: 0.34, ease: MENU_EASE }}
+        className={cn(
+          "pointer-events-auto relative flex w-full max-w-76 flex-col items-center border border-foreground/5 bg-surface/75 shadow-[0_8px_10px_rgba(0,0,0,0.30)] backdrop-blur-2xl sm:max-w-max",
+          className,
+        )}
+      >
+        <div className="flex w-full items-center justify-between gap-4 p-1.5 pl-4 sm:pl-6 md:gap-10">
+          <a
+            href="#top"
+            className="font-title rounded-full text-lg font-bold tracking-tight text-foreground transition-colors hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent sm:text-xl"
+            onClick={() => setIsOpen(false)}
+          >
+            Coralab.
+          </a>
+
+          <ul className="hidden items-center md:flex">
+            {items.map((item) => (
+              <li key={item.href}>
+                <a
+                  href={item.href}
+                  className="font-body rounded-full px-4 py-2 text-[10px] font-bold uppercase tracking-[0.25em] text-foreground/60 transition-colors hover:text-foreground focus-visible:outline-none"
+                >
+                  {item.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+
+          <div className="flex items-center gap-2">
+            <a
+              href={ctaHref}
+              onClick={() => setIsOpen(false)}
+              className="font-body group flex min-h-10 items-center justify-center gap-2 rounded-full bg-foreground px-4 text-[10px] font-bold uppercase tracking-[0.22em] text-background transition-all hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background sm:min-h-11 sm:px-6 sm:tracking-[0.25em]"
+            >
+              Hablemos
+              <ArrowUpRight
+                size={14}
+                className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+              />
+            </a>
+
+            <button
+              type="button"
+              onClick={() => setIsOpen((open) => !open)}
+              className="flex h-10 w-10 items-center justify-center rounded-full text-foreground transition-colors hover:bg-foreground/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent md:hidden"
+              aria-controls={menuId}
+              aria-expanded={isOpen}
+              aria-label={isOpen ? "Cerrar menú" : "Abrir menú"}
+            >
+              <motion.span
+                animate={{ rotate: isOpen ? 180 : 0, scale: isOpen ? 0.92 : 1 }}
+                transition={{ duration: 0.28, ease: MENU_EASE }}
+                className="flex items-center justify-center"
+              >
+                {isOpen ? <X size={20} /> : <Menu size={20} />}
+              </motion.span>
+            </button>
+          </div>
+        </div>
+
+        <AnimatePresence initial={false}>
+          {isOpen && (
+            <motion.div
+              id={menuId}
+              initial={{ height: 0, opacity: 0, y: -10 }}
+              animate={{ height: "auto", opacity: 1, y: 0 }}
+              exit={{ height: 0, opacity: 0, y: -10 }}
+              transition={{ duration: 0.32, ease: MENU_EASE }}
+              className="w-full overflow-hidden md:hidden"
+            >
+              <motion.ul
+                initial="closed"
+                animate="open"
+                exit="closed"
+                variants={{
+                  open: {
+                    transition: {
+                      delayChildren: 0.04,
+                      staggerChildren: 0.06,
+                    },
+                  },
+                  closed: {
+                    transition: {
+                      staggerChildren: 0.04,
+                      staggerDirection: -1,
+                    },
+                  },
+                }}
+                className="flex flex-col items-center gap-2 px-3 pb-4 pt-1"
+              >
+                {items.map((item) => (
+                  <motion.li
+                    key={item.href}
+                    variants={{
+                      closed: { opacity: 0, y: -8, filter: "blur(6px)" },
+                      open: { opacity: 1, y: 0, filter: "blur(0px)" },
+                    }}
+                    transition={{ duration: 0.24, ease: MENU_EASE }}
+                    className="w-full"
+                  >
+                    <a
+                      href={item.href}
+                      onClick={() => setIsOpen(false)}
+                      className="font-body block w-full rounded-2xl px-4 py-3 text-center text-[11px] font-bold uppercase tracking-[0.25em] text-foreground/80 transition-colors hover:bg-foreground/5 hover:text-foreground active:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+                    >
+                      {item.label}
+                    </a>
+                  </motion.li>
+                ))}
+              </motion.ul>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </motion.nav>
+    </header>
+  );
+}
+
+export type { NavItem, NavbarProps };
