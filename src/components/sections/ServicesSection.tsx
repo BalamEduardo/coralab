@@ -4,10 +4,10 @@ import { motion, type Variants } from "framer-motion";
 import { Terminal, Wand2, Layers, Brush } from "lucide-react";
 
 const fadeUp: Variants = {
-  hidden: { opacity: 0, y: 50 },
+  hidden: { opacity: 0, y: "var(--y-offset, 50px)" },
   visible: {
     opacity: 1,
-    y: 0,
+    y: "0px",
     transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] },
   },
 };
@@ -26,7 +26,7 @@ export function ServicesSection() {
             viewport={{ once: true, margin: "-100px" }}
             variants={fadeUp}
             style={{ willChange: "transform, opacity" }}
-            className="max-w-4xl mb-16 md:mb-28"
+            className="max-w-4xl mb-16 md:mb-28 [--y-offset:0px] md:[--y-offset:50px]"
           >
             <h2 className="font-title text-5xl sm:text-7xl md:text-8xl lg:text-8xl font-bold tracking-tight mb-6 md:mb-8 text-foreground leading-[0.9]">
               Lo que usamos <br />
@@ -47,7 +47,7 @@ export function ServicesSection() {
               viewport={{ once: true, margin: "-100px" }}
               variants={fadeUp}
               style={{ willChange: "transform, opacity" }}
-              className="md:col-span-2 bg-surface p-8 md:p-12 lg:p-16 rounded-3xl md:rounded-[3rem] flex flex-col justify-between group overflow-hidden relative border border-foreground/5 md:hover:border-foreground/10 md:hover:shadow-xl transition-all duration-700"
+              className="md:col-span-2 bg-surface p-8 md:p-12 lg:p-16 rounded-3xl md:rounded-[3rem] flex flex-col justify-between group overflow-hidden relative border border-foreground/5 md:hover:border-foreground/10 md:hover:shadow-xl transition-all duration-700 [--y-offset:0px] md:[--y-offset:50px]"
             >
               <div className="flex justify-between items-start relative z-10">
                 <div className="w-14 h-14 bg-background rounded-full flex items-center justify-center border border-foreground/5 transition-transform duration-500 md:group-hover:scale-110">
@@ -75,7 +75,7 @@ export function ServicesSection() {
               viewport={{ once: true, margin: "-100px" }}
               variants={fadeUp}
               style={{ willChange: "transform, opacity" }}
-              className="bg-accent p-8 md:p-12 lg:p-16 rounded-3xl md:rounded-[3rem] flex flex-col justify-between text-background group relative overflow-hidden transition-transform duration-500 md:hover:-translate-y-2 md:hover:shadow-2xl"
+              className="bg-accent p-8 md:p-12 lg:p-16 rounded-3xl md:rounded-[3rem] flex flex-col justify-between text-background group relative overflow-hidden transition-transform duration-500 md:hover:-translate-y-2 md:hover:shadow-2xl [--y-offset:0px] md:[--y-offset:50px]"
             >
               <div className="flex justify-between items-start relative z-10">
                 <Wand2 className="w-10 h-10 lg:w-12 lg:h-12 opacity-80 md:group-hover:rotate-12 md:group-hover:scale-110 transition-transform duration-700" />
@@ -102,7 +102,7 @@ export function ServicesSection() {
               viewport={{ once: true, margin: "-100px" }}
               style={{ willChange: "transform, opacity" }}
               variants={fadeUp}
-              className="bg-surface p-8 md:p-12 lg:p-16 rounded-3xl md:rounded-[3rem] flex flex-col justify-between border border-foreground/5 md:hover:border-foreground/10 md:hover:shadow-xl transition-all duration-700 relative overflow-hidden group"
+              className="bg-surface p-8 md:p-12 lg:p-16 rounded-3xl md:rounded-[3rem] flex flex-col justify-between border border-foreground/5 md:hover:border-foreground/10 md:hover:shadow-xl transition-all duration-700 relative overflow-hidden group [--y-offset:0px] md:[--y-offset:50px]"
             >
               <div className="flex justify-between items-start relative z-10">
                 <Layers className="w-10 h-10 lg:w-12 lg:h-12 text-accent md:group-hover:scale-110 transition-transform duration-700" />
@@ -127,7 +127,7 @@ export function ServicesSection() {
               viewport={{ once: true, margin: "-100px" }}
               style={{ willChange: "transform, opacity" }}
               variants={fadeUp}
-              className="md:col-span-2 bg-surface text-foreground p-8 md:p-12 lg:p-16 rounded-3xl md:rounded-[3rem] flex flex-col md:flex-row items-start md:items-center justify-between border border-foreground/5 md:hover:border-foreground/10 md:hover:shadow-xl transition-all duration-700 overflow-hidden relative group"
+              className="md:col-span-2 bg-surface text-foreground p-8 md:p-12 lg:p-16 rounded-3xl md:rounded-[3rem] flex flex-col md:flex-row items-start md:items-center justify-between border border-foreground/5 md:hover:border-foreground/10 md:hover:shadow-xl transition-all duration-700 overflow-hidden relative group [--y-offset:0px] md:[--y-offset:50px]"
             >
               <div className="relative z-10">
                 <div className="mb-8 md:mb-12 inline-block">
