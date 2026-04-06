@@ -27,11 +27,13 @@ const NOISE_TEXTURE =
 function HeroTitleLine({
   index,
   scrollYProgress,
+  isMobileMotion,
   disableScrollParallax,
   shouldReduceMotion,
 }: {
   index: number;
   scrollYProgress: MotionValue<number>;
+  isMobileMotion: boolean;
   disableScrollParallax: boolean;
   shouldReduceMotion: boolean;
 }) {
@@ -46,16 +48,20 @@ function HeroTitleLine({
   return (
     <motion.span
       className="flex justify-center overflow-visible py-3 -my-3 sm:py-4 sm:-my-4"
-      initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 40 }}
+      initial={
+        shouldReduceMotion
+          ? { opacity: 1 }
+          : { opacity: 0, y: isMobileMotion ? 14 : 40 }
+      }
       animate={{ opacity: 1, y: 0 }}
       style={{
-        opacity: disableScrollParallax ? 1 : lineOpacity,
-        y: disableScrollParallax ? 0 : lineY,
+        opacity: disableScrollParallax ? undefined : lineOpacity,
+        y: disableScrollParallax ? undefined : lineY,
       }}
       transition={{
-        duration: shouldReduceMotion ? 0.35 : 1.2,
+        duration: shouldReduceMotion ? 0.35 : isMobileMotion ? 0.55 : 1.2,
         ease: EASE,
-        delay: shouldReduceMotion ? 0 : index * 0.2,
+        delay: shouldReduceMotion ? 0 : isMobileMotion ? index * 0.08 : index * 0.2,
       }}
     >
       <span className="flex whitespace-nowrap">
@@ -107,6 +113,7 @@ export function Hero() {
   }, []);
 
   const disableScrollParallax = shouldReduceMotion || isCoarsePointer;
+  const isMobileMotion = isCoarsePointer && !shouldReduceMotion;
 
   const heroRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({
@@ -130,7 +137,10 @@ export function Hero() {
         className="hero-parallax-text relative z-10 flex w-full flex-col items-center"
         initial={shouldReduceMotion ? false : { opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: shouldReduceMotion ? 0.01 : 0.85, ease: EASE }}
+        transition={{
+          duration: shouldReduceMotion ? 0.01 : isMobileMotion ? 0.45 : 0.85,
+          ease: EASE,
+        }}
       >
         <motion.h1
           className="font-title w-full max-w-6xl text-[clamp(1.75rem,7.5vw,3.75rem)] leading-[0.9] tracking-[-0.015em] text-foreground sm:text-[clamp(4.6rem,10vw,7rem)] sm:leading-[0.86] sm:tracking-[-0.04em] lg:text-[clamp(5.2rem,6vw,7.4rem)] lg:tracking-[-0.05em]"
@@ -140,6 +150,7 @@ export function Hero() {
               key={`${line.start}-${line.end}-${line.accent}`}
               index={index}
               scrollYProgress={scrollYProgress}
+              isMobileMotion={isMobileMotion}
               disableScrollParallax={disableScrollParallax}
               shouldReduceMotion={shouldReduceMotion}
             />

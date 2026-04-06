@@ -2,7 +2,7 @@
 
 import { useEffect, useId, useState } from "react";
 import { ArrowUpRight, Menu, X } from "lucide-react";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 
 import { cn } from "@/lib/utils";
 
@@ -31,6 +31,7 @@ export function Navbar({
   className,
 }: NavbarProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const shouldReduceMotion = Boolean(useReducedMotion());
   const menuId = useId();
 
   useEffect(() => {
@@ -48,13 +49,17 @@ export function Navbar({
     <header className="pointer-events-none fixed inset-x-0 top-4 z-50 flex flex-col items-center px-4 sm:top-6">
       <motion.nav
         aria-label="Navegacion principal"
+        initial={false}
         animate={{
           borderRadius: isOpen ? 32 : 999,
           y: isOpen ? 2 : 0,
         }}
-        transition={{ duration: 0.34, ease: MENU_EASE }}
+        transition={{
+          duration: shouldReduceMotion ? 0.01 : 0.28,
+          ease: MENU_EASE,
+        }}
         className={cn(
-          "pointer-events-auto relative flex w-full max-w-76 flex-col items-center border border-foreground/5 bg-surface/75 shadow-[0_8px_10px_rgba(0,0,0,0.30)] backdrop-blur-2xl sm:max-w-max",
+          "pointer-events-auto relative flex w-full max-w-76 flex-col items-center overflow-hidden rounded-[999px] border border-foreground/5 bg-surface/75 shadow-[0_8px_10px_rgba(0,0,0,0.30)] backdrop-blur-2xl sm:max-w-max",
           className,
         )}
       >
@@ -103,7 +108,10 @@ export function Navbar({
             >
               <motion.span
                 animate={{ rotate: isOpen ? 180 : 0, scale: isOpen ? 0.92 : 1 }}
-                transition={{ duration: 0.28, ease: MENU_EASE }}
+                transition={{
+                  duration: shouldReduceMotion ? 0.01 : 0.22,
+                  ease: MENU_EASE,
+                }}
                 className="flex items-center justify-center"
               >
                 {isOpen ? <X size={20} /> : <Menu size={20} />}
@@ -116,10 +124,13 @@ export function Navbar({
           {isOpen && (
             <motion.div
               id={menuId}
-              initial={{ height: 0, opacity: 0, y: -10 }}
-              animate={{ height: "auto", opacity: 1, y: 0 }}
-              exit={{ height: 0, opacity: 0, y: -10 }}
-              transition={{ duration: 0.32, ease: MENU_EASE }}
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: "auto", opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{
+                duration: shouldReduceMotion ? 0.01 : 0.24,
+                ease: MENU_EASE,
+              }}
               className="w-full overflow-hidden md:hidden"
             >
               <motion.ul
@@ -129,13 +140,13 @@ export function Navbar({
                 variants={{
                   open: {
                     transition: {
-                      delayChildren: 0.04,
-                      staggerChildren: 0.06,
+                      delayChildren: 0.03,
+                      staggerChildren: 0.05,
                     },
                   },
                   closed: {
                     transition: {
-                      staggerChildren: 0.04,
+                      staggerChildren: 0.03,
                       staggerDirection: -1,
                     },
                   },
@@ -146,10 +157,13 @@ export function Navbar({
                   <motion.li
                     key={item.href}
                     variants={{
-                      closed: { opacity: 0, y: -8, filter: "blur(6px)" },
-                      open: { opacity: 1, y: 0, filter: "blur(0px)" },
+                      closed: { opacity: 0, y: -4 },
+                      open: { opacity: 1, y: 0 },
                     }}
-                    transition={{ duration: 0.24, ease: MENU_EASE }}
+                    transition={{
+                      duration: shouldReduceMotion ? 0.01 : 0.2,
+                      ease: MENU_EASE,
+                    }}
                     className="w-full"
                   >
                     <a
