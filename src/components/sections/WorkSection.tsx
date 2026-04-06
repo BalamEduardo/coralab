@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useRef } from "react";
 import { MoveUpRight } from "lucide-react";
 import { motion, useScroll, useTransform, type Variants } from "framer-motion";
@@ -78,10 +79,12 @@ export function WorkSection() {
             className="group relative bg-surface rounded-3xl sm:rounded-4xl md:rounded-[3rem] flex flex-col md:flex-row items-center shadow-2xl transition-[box-shadow,border] duration-700 border border-foreground/5 overflow-hidden"
           >
             <div className="w-full md:w-3/5 h-64 sm:h-80 md:h-136 lg:h-160 overflow-hidden relative bg-foreground/5">
-              <img
-                className="w-full h-full object-cover object-top transition-transform duration-1000 group-hover:scale-105"
-                src="/Project/momento.png"
+              <Image
+                src="/Project/momento.webp"
                 alt="Proyecto Momento"
+                fill
+                sizes="(min-width: 768px) 60vw, 100vw"
+                className="object-cover object-top transition-transform duration-1000 group-hover:scale-105"
               />
               <div className="absolute inset-0 bg-foreground/5 mix-blend-multiply transition-opacity duration-700 group-hover:opacity-0" />
             </div>
@@ -115,10 +118,12 @@ export function WorkSection() {
               className="group bg-surface rounded-3xl sm:rounded-4xl shadow-2xl md:rounded-[3rem] border border-foreground/5 hover:shadow-2xl transition-[box-shadow,border] duration-700 overflow-hidden"
             >
               <div className="h-64 sm:h-72 md:h-112 lg:h-128 overflow-hidden relative bg-foreground/5">
-                <img
-                  className="w-full h-full object-cover object-top transition-transform duration-1000 group-hover:scale-105"
-                  src="/Project/Apex.png"
+                <Image
+                  src="/Project/Apex.webp"
                   alt="Proyecto Apex"
+                  fill
+                  sizes="(min-width: 768px) 50vw, 100vw"
+                  className="object-cover object-top transition-transform duration-1000 group-hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-foreground/5 mix-blend-multiply transition-opacity duration-700 group-hover:opacity-0" />
               </div>
@@ -146,10 +151,12 @@ export function WorkSection() {
               className="group bg-surface rounded-3xl sm:rounded-4xl shadow-2xl md:rounded-[3rem] border border-foreground/5 hover:shadow-2xl transition-[box-shadow,border] duration-700 md:mt-32 overflow-hidden"
             >
               <div className="h-64 sm:h-72 md:h-112 lg:h-128 overflow-hidden relative bg-foreground/5">
-                <img
-                  className="w-full h-full object-cover object-top transition-transform duration-1000 group-hover:scale-105"
-                  src="/Project/streetware.png"
+                <Image
+                  src="/Project/streetware.webp"
                   alt="Proyecto Streetware"
+                  fill
+                  sizes="(min-width: 768px) 50vw, 100vw"
+                  className="object-cover object-top transition-transform duration-1000 group-hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-foreground/5 mix-blend-multiply transition-opacity duration-700 group-hover:opacity-0" />
               </div>

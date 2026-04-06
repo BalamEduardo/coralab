@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useRef } from "react";
 import { motion, useReducedMotion, useScroll, useTransform, type Variants } from "framer-motion";
 
@@ -75,12 +76,18 @@ export function AboutSection() {
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 relative w-full items-start">
           {/* Left Image (Tall) */}
           <div className="relative md:col-span-5 h-87.5 sm:h-112.5 md:h-auto md:aspect-3/4 overflow-hidden rounded-3xl md:rounded-4xl bg-foreground/5">
-            <motion.img
-              style={{ y: yImage1, scale: 1.15 }}
-              src="/about/about-image.jpg"
-              className="w-full h-full object-cover transition-all duration-[1.5s] hover:scale-100"
-              alt="Editorial Texture"
-            />
+            <motion.div
+              style={{ y: yImage1 }}
+              className="relative h-full w-full scale-[1.15] transition-transform duration-[1.5s] hover:scale-100"
+            >
+              <Image
+                src="/about/about-image.webp"
+                alt="Editorial Texture"
+                fill
+                sizes="(min-width: 768px) 40vw, 100vw"
+                className="object-cover"
+              />
+            </motion.div>
             <div className="absolute inset-0 bg-foreground/5 mix-blend-color pointer-events-none"></div>
           </div>
 
@@ -114,12 +121,18 @@ export function AboutSection() {
 
             {/* Right Lower Image (Landscape Parallax) */}
             <div className="relative w-full h-62.5 sm:h-87.5 md:h-125 overflow-hidden rounded-3xl md:rounded-4xl bg-foreground/5 mt-auto">
-              <motion.img
-                style={{ y: yImage2, scale: 1.15 }}
-                src="/about/about-image2.jpg"
-                className="w-full h-full object-cover opacity-90 transition-transform duration-[1.5s] hover:scale-100"
-                alt="Abstract Architecture"
-              />
+              <motion.div
+                style={{ y: yImage2 }}
+                className="relative h-full w-full scale-[1.15] opacity-90 transition-transform duration-[1.5s] hover:scale-100"
+              >
+                <Image
+                  src="/about/about-image2.webp"
+                  alt="Abstract Architecture"
+                  fill
+                  sizes="(min-width: 768px) 56vw, 100vw"
+                  className="object-cover"
+                />
+              </motion.div>
               <div className="absolute inset-0 bg-accent/5 mix-blend-color pointer-events-none"></div>
             </div>
           </div>
