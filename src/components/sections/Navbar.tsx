@@ -59,14 +59,14 @@ export function Navbar({
           ease: MENU_EASE,
         }}
         className={cn(
-          "pointer-events-auto relative flex w-full max-w-76 flex-col items-center overflow-hidden rounded-[999px] border border-foreground/5 bg-surface/75 shadow-[0_8px_10px_rgba(0,0,0,0.30)] backdrop-blur-2xl sm:max-w-max",
+          "pointer-events-auto relative flex w-full max-w-76 flex-col items-center rounded-[999px] border border-foreground/5 bg-surface/75 shadow-[0_8px_10px_rgba(0,0,0,0.30)] backdrop-blur-2xl sm:max-w-max",
           className,
         )}
       >
         <div className="flex w-full items-center justify-between gap-4 p-1.5 pl-4 sm:pl-6 md:gap-10">
           <a
             href="#top"
-            className="font-title rounded-full text-lg font-bold tracking-tight text-foreground transition-colors hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent sm:text-xl"
+            className="font-title shrink-0 rounded-full text-lg font-bold tracking-tight text-foreground transition-colors hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent sm:text-xl"
             onClick={() => setIsOpen(false)}
           >
             Coralab.
