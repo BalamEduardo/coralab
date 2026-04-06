@@ -68,7 +68,7 @@ function HeroTitleLine({
         transition={{
           duration: shouldReduceMotion ? 0.35 : isMobileMotion ? 0.55 : 1.2,
           ease: EASE,
-          delay: shouldReduceMotion ? 0 : isMobileMotion ? index * 0.08 : index * 0.2,
+          delay: shouldReduceMotion ? 0 : isMobileMotion ? index * 0.09 : index * 0.4,
         }}
       >
         {lineSegments.map((segment, segIndex) => (

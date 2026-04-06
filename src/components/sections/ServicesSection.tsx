@@ -45,10 +45,10 @@ export function ServicesSection() {
               whileInView="visible"
               viewport={{ once: true, margin: "-100px" }}
               variants={fadeUp}
-              className="md:col-span-2 bg-surface p-8 md:p-12 lg:p-16 rounded-3xl md:rounded-[3rem] flex flex-col justify-between group overflow-hidden relative border border-foreground/5 hover:border-foreground/10 hover:shadow-xl transition-all duration-700"
+              className="md:col-span-2 bg-surface p-8 md:p-12 lg:p-16 rounded-3xl md:rounded-[3rem] flex flex-col justify-between group overflow-hidden relative border border-foreground/5 md:hover:border-foreground/10 md:hover:shadow-xl transition-all duration-700"
             >
               <div className="flex justify-between items-start relative z-10">
-                <div className="w-14 h-14 bg-background rounded-full flex items-center justify-center border border-foreground/5 transition-transform duration-500 group-hover:scale-110">
+                <div className="w-14 h-14 bg-background rounded-full flex items-center justify-center border border-foreground/5 transition-transform duration-500 md:group-hover:scale-110">
                   <Terminal className="w-6 h-6 text-accent" />
                 </div>
                 <span className="font-body px-4 py-1.5 border border-foreground/10 rounded-full text-[10px] uppercase tracking-[0.3em] text-foreground/60 font-bold">
@@ -63,7 +63,7 @@ export function ServicesSection() {
                   Sitios simples y claros pensados para mostrar tu negocio y generar clientes.
                 </p>
               </div>
-              <Terminal className="w-64 h-64 sm:w-72 sm:h-72 md:w-md md:h-112 absolute right-[-5%] bottom-[-10%] text-foreground opacity-[0.02] group-hover:opacity-[0.04] group-hover:scale-110 transition-all duration-700 -rotate-12" />
+              <Terminal className="w-64 h-64 sm:w-72 sm:h-72 md:w-[450px] md:h-[450px] absolute right-[-5%] bottom-[-10%] text-foreground opacity-[0.02] md:group-hover:opacity-[0.04] md:group-hover:scale-110 transition-all duration-700 -rotate-12" />
             </motion.div>
 
             {/* UI/UX */}
@@ -72,10 +72,10 @@ export function ServicesSection() {
               whileInView="visible"
               viewport={{ once: true, margin: "-100px" }}
               variants={fadeUp}
-              className="bg-accent p-8 md:p-12 lg:p-16 rounded-3xl md:rounded-[3rem] flex flex-col justify-between text-background group relative overflow-hidden transition-transform duration-500 hover:-translate-y-2 hover:shadow-2xl"
+              className="bg-accent p-8 md:p-12 lg:p-16 rounded-3xl md:rounded-[3rem] flex flex-col justify-between text-background group relative overflow-hidden transition-transform duration-500 md:hover:-translate-y-2 md:hover:shadow-2xl"
             >
               <div className="flex justify-between items-start relative z-10">
-                <Wand2 className="w-10 h-10 lg:w-12 lg:h-12 opacity-80 group-hover:rotate-12 group-hover:scale-110 transition-transform duration-700" />
+                <Wand2 className="w-10 h-10 lg:w-12 lg:h-12 opacity-80 md:group-hover:rotate-12 md:group-hover:scale-110 transition-transform duration-700" />
                 <span className="font-body px-4 py-1.5 border border-background/20 rounded-full text-[10px] uppercase tracking-[0.3em] text-background/80 font-bold">
                   Design
                 </span>
@@ -89,7 +89,7 @@ export function ServicesSection() {
                   Interfaces limpias y funcionales que hacen fácil entender tu negocio.
                 </p>
               </div>
-              <div className="absolute inset-0 bg-linear-to-t from-foreground/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
+              <div className="absolute inset-0 bg-linear-to-t from-foreground/10 to-transparent opacity-0 md:group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
             </motion.div>
 
             {/* Strategy */}
@@ -98,10 +98,10 @@ export function ServicesSection() {
               whileInView="visible"
               viewport={{ once: true, margin: "-100px" }}
               variants={fadeUp}
-              className="bg-surface p-8 md:p-12 lg:p-16 rounded-3xl md:rounded-[3rem] flex flex-col justify-between border border-foreground/5 hover:border-foreground/10 hover:shadow-xl transition-all duration-700 relative overflow-hidden group"
+              className="bg-surface p-8 md:p-12 lg:p-16 rounded-3xl md:rounded-[3rem] flex flex-col justify-between border border-foreground/5 md:hover:border-foreground/10 md:hover:shadow-xl transition-all duration-700 relative overflow-hidden group"
             >
               <div className="flex justify-between items-start relative z-10">
-                <Layers className="w-10 h-10 lg:w-12 lg:h-12 text-accent group-hover:scale-110 transition-transform duration-700" />
+                <Layers className="w-10 h-10 lg:w-12 lg:h-12 text-accent md:group-hover:scale-110 transition-transform duration-700" />
                 <span className="font-body px-4 py-1.5 border border-foreground/10 rounded-full text-[10px] uppercase tracking-[0.3em] text-foreground/60 font-bold">
                   Strategy
                 </span>
@@ -122,7 +122,7 @@ export function ServicesSection() {
               whileInView="visible"
               viewport={{ once: true, margin: "-100px" }}
               variants={fadeUp}
-              className="md:col-span-2 bg-surface text-foreground p-8 md:p-12 lg:p-16 rounded-3xl md:rounded-[3rem] flex flex-col md:flex-row items-start md:items-center justify-between border border-foreground/5 hover:border-foreground/10 hover:shadow-xl transition-all duration-700 overflow-hidden relative group"
+              className="md:col-span-2 bg-surface text-foreground p-8 md:p-12 lg:p-16 rounded-3xl md:rounded-[3rem] flex flex-col md:flex-row items-start md:items-center justify-between border border-foreground/5 md:hover:border-foreground/10 md:hover:shadow-xl transition-all duration-700 overflow-hidden relative group"
             >
               <div className="relative z-10">
                 <div className="mb-8 md:mb-12 inline-block">
@@ -137,8 +137,8 @@ export function ServicesSection() {
                   Soluciones simples para ahorrar tiempo en procesos como contacto o citas.
                 </p>
               </div>
-              <div className="absolute right-[-20%] bottom-[-20%] md:right-[0%] md:top-[-20%] h-full w-64 md:w-1/2 flex items-center justify-center opacity-[0.02] group-hover:opacity-[0.04] group-hover:scale-110 transition-all duration-1000 pointer-events-none">
-                <Brush className="w-80 h-80 md:w-lg md:h-128 -rotate-12" />
+              <div className="absolute right-[-20%] bottom-[-20%] md:right-[0%] md:top-[-20%] h-full w-64 md:w-1/2 flex items-center justify-center opacity-[0.02] md:group-hover:opacity-[0.04] md:group-hover:scale-110 transition-all duration-1000 pointer-events-none">
+                <Brush className="w-80 h-80 md:w-[500px] md:h-[500px] -rotate-12" />
               </div>
             </motion.div>
           </div>

@@ -149,6 +149,7 @@ export function WorkSection() {
                   src="/Project/Apex.webp"
                   alt="Proyecto Apex"
                   fill
+                  loading="eager"
                   sizes="(min-width: 768px) 50vw, 100vw"
                   className="object-cover object-top transition-transform duration-1000 group-hover:scale-105"
                 />
