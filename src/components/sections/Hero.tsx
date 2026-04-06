@@ -48,23 +48,29 @@ function HeroTitleLine({
   return (
     <motion.span
       className="flex justify-center overflow-visible py-3 -my-3 sm:py-4 sm:-my-4"
-      initial={
-        shouldReduceMotion
-          ? { opacity: 1 }
-          : { opacity: 0, y: isMobileMotion ? 14 : 40 }
+      style={
+        disableScrollParallax
+          ? undefined
+          : {
+              opacity: lineOpacity,
+              y: lineY,
+            }
       }
-      animate={{ opacity: 1, y: 0 }}
-      style={{
-        opacity: disableScrollParallax ? undefined : lineOpacity,
-        y: disableScrollParallax ? undefined : lineY,
-      }}
-      transition={{
-        duration: shouldReduceMotion ? 0.35 : isMobileMotion ? 0.55 : 1.2,
-        ease: EASE,
-        delay: shouldReduceMotion ? 0 : isMobileMotion ? index * 0.08 : index * 0.2,
-      }}
     >
-      <span className="flex whitespace-nowrap">
+      <motion.span
+        className="flex whitespace-nowrap"
+        initial={
+          shouldReduceMotion
+            ? { opacity: 1 }
+            : { opacity: 0, y: isMobileMotion ? 14 : 40 }
+        }
+        animate={{ opacity: 1, y: 0 }}
+        transition={{
+          duration: shouldReduceMotion ? 0.35 : isMobileMotion ? 0.55 : 1.2,
+          ease: EASE,
+          delay: shouldReduceMotion ? 0 : isMobileMotion ? index * 0.08 : index * 0.2,
+        }}
+      >
         {lineSegments.map((segment, segIndex) => (
           <span
             key={`${index}-${segIndex}`}
@@ -85,7 +91,7 @@ function HeroTitleLine({
             </span>
           </span>
         ))}
-      </span>
+      </motion.span>
     </motion.span>
   );
 }
