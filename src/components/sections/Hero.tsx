@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   type MotionValue,
   motion,
@@ -16,102 +16,68 @@ const HERO_LINES = [
 ] as const;
 const HERO_SEGMENTS = HERO_LINES.map((line) => [
   { text: line.start, accent: false },
-  ...(line.accent ? [{ text: ` ${line.accent}`, accent: true }] : []),
-  ...(line.end ? [{ text: ` ${line.end}`, accent: false }] : []),
+  ...(line.accent ? [{ text: line.accent, accent: true }] : []),
+  ...(line.end ? [{ text: line.end, accent: false }] : []),
 ]);
 
 const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
 const NOISE_TEXTURE =
   "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E\")";
 
-function HeroGlyph({
-  char,
-  accent,
-  glyphIndex,
-  scrollYProgress,
-  shouldReduceMotion,
-}: {
-  char: string;
-  accent: boolean;
-  glyphIndex: number;
-  scrollYProgress: MotionValue<number>;
-  shouldReduceMotion: boolean;
-}) {
-  const exitStart = 0.05 + glyphIndex * 0.012;
-  const exitEnd = exitStart + 0.35;
-
-  const glyphOpacity = useTransform(scrollYProgress, [exitStart, exitEnd], [1, 0]);
-  const glyphY = useTransform(scrollYProgress, [exitStart, exitEnd], [0, -96]);
-  const glyphScale = useTransform(scrollYProgress, [exitStart, exitEnd], [1, 0.85]);
-  const glyphBlur = useTransform(scrollYProgress, [exitStart, exitEnd], ["blur(0px)", "blur(8px)"]);
-
-  return (
-    <motion.span
-      className={accent ? "font-subtitle inline-block font-light italic text-accent" : "inline-block"}
-      style={{
-        opacity: shouldReduceMotion ? 1 : glyphOpacity,
-        y: shouldReduceMotion ? 0 : glyphY,
-        scale: shouldReduceMotion ? 1 : glyphScale,
-        filter: shouldReduceMotion ? "none" : glyphBlur,
-      }}
-    >
-      {char === " " ? "\u00A0" : char}
-    </motion.span>
-  );
-}
-
 function HeroTitleLine({
   index,
-  glyphOffset,
   scrollYProgress,
+  disableScrollParallax,
   shouldReduceMotion,
 }: {
   index: number;
-  glyphOffset: number;
   scrollYProgress: MotionValue<number>;
+  disableScrollParallax: boolean;
   shouldReduceMotion: boolean;
 }) {
   const lineSegments = HERO_SEGMENTS[index];
-  const glyphs = lineSegments.reduce<
-    Array<{
-      accent: boolean;
-      char: string;
-      glyphIndex: number;
-    }>
-  >((allGlyphs, segment) => {
-    const segmentStart = glyphOffset + allGlyphs.length;
 
-    return [
-      ...allGlyphs,
-      ...segment.text.split("").map((char, charIndex) => ({
-        accent: segment.accent,
-        char,
-        glyphIndex: segmentStart + charIndex,
-      })),
-    ];
-  }, []);
+  const exitStart = 0.05 + index * 0.15;
+  const exitEnd = exitStart + 0.35;
+
+  const lineOpacity = useTransform(scrollYProgress, [exitStart, exitEnd], [1, 0]);
+  const lineY = useTransform(scrollYProgress, [exitStart, exitEnd], [0, -48]);
 
   return (
     <motion.span
       className="flex justify-center overflow-visible py-3 -my-3 sm:py-4 sm:-my-4"
       initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 40 }}
       animate={{ opacity: 1, y: 0 }}
+      style={{
+        opacity: disableScrollParallax ? 1 : lineOpacity,
+        y: disableScrollParallax ? 0 : lineY,
+      }}
       transition={{
-        duration: shouldReduceMotion ? 0.35 : 0.9,
+        duration: shouldReduceMotion ? 0.35 : 1.2,
         ease: EASE,
-        delay: shouldReduceMotion ? 0 : index * 0.12,
+        delay: shouldReduceMotion ? 0 : index * 0.2,
       }}
     >
       <span className="flex whitespace-nowrap">
-        {glyphs.map((glyph) => (
-          <HeroGlyph
-            key={`${index}-${glyph.glyphIndex}-${glyph.char}`}
-            char={glyph.char}
-            accent={glyph.accent}
-            glyphIndex={glyph.glyphIndex}
-            scrollYProgress={scrollYProgress}
-            shouldReduceMotion={shouldReduceMotion}
-          />
+        {lineSegments.map((segment, segIndex) => (
+          <span
+            key={`${index}-${segIndex}`}
+            className={
+              segIndex === 0
+                ? "inline-flex items-baseline"
+                : "inline-flex items-baseline ml-[0.18em] sm:ml-[0.40em]"
+            }
+          >
+            <span
+              className={
+                segment.accent
+                  ? "font-subtitle inline-block font-light italic text-accent"
+                  : "inline-block"
+              }
+            >
+              {segment.text}
+            </span>
+          </span>
         ))}
       </span>
     </motion.span>
@@ -120,6 +86,27 @@ function HeroTitleLine({
 
 export function Hero() {
   const shouldReduceMotion = Boolean(useReducedMotion());
+  const [isCoarsePointer, setIsCoarsePointer] = useState(false);
+
+  useEffect(() => {
+    if (typeof window === "undefined") {
+      return;
+    }
+
+    const coarseMedia = window.matchMedia("(pointer: coarse)");
+    const updatePointerMode = () => {
+      setIsCoarsePointer(coarseMedia.matches);
+    };
+
+    updatePointerMode();
+    coarseMedia.addEventListener("change", updatePointerMode);
+
+    return () => {
+      coarseMedia.removeEventListener("change", updatePointerMode);
+    };
+  }, []);
+
+  const disableScrollParallax = shouldReduceMotion || isCoarsePointer;
 
   const heroRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({
@@ -135,7 +122,7 @@ export function Hero() {
     >
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 z-1 opacity-[0.05]"
+        className="pointer-events-none absolute inset-0 z-1 hidden opacity-[0.05] sm:block"
         style={{ backgroundImage: NOISE_TEXTURE }}
       />
 
@@ -143,23 +130,17 @@ export function Hero() {
         className="hero-parallax-text relative z-10 flex w-full flex-col items-center"
         initial={shouldReduceMotion ? false : { opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: shouldReduceMotion ? 0.01 : 0.4, ease: EASE }}
+        transition={{ duration: shouldReduceMotion ? 0.01 : 0.85, ease: EASE }}
       >
         <motion.h1
-          className="font-title w-full max-w-6xl text-[clamp(1.75rem,7.5vw,3.75rem)] leading-[0.9] tracking-[-0.035em] text-foreground sm:text-[clamp(4.6rem,10vw,7rem)] sm:leading-[0.86] sm:tracking-[-0.05em] lg:text-[clamp(5.2rem,6vw,7.4rem)]"
+          className="font-title w-full max-w-6xl text-[clamp(1.75rem,7.5vw,3.75rem)] leading-[0.9] tracking-[-0.015em] text-foreground sm:text-[clamp(4.6rem,10vw,7rem)] sm:leading-[0.86] sm:tracking-[-0.04em] lg:text-[clamp(5.2rem,6vw,7.4rem)] lg:tracking-[-0.05em]"
         >
           {HERO_LINES.map((line, index) => (
             <HeroTitleLine
               key={`${line.start}-${line.end}-${line.accent}`}
               index={index}
-              glyphOffset={HERO_SEGMENTS
-                .slice(0, index)
-                .reduce(
-                  (total, currentLine) =>
-                    total + currentLine.reduce((lineTotal, segment) => lineTotal + segment.text.length, 0),
-                  0,
-                )}
               scrollYProgress={scrollYProgress}
+              disableScrollParallax={disableScrollParallax}
               shouldReduceMotion={shouldReduceMotion}
             />
           ))}

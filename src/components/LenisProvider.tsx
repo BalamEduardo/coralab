@@ -14,6 +14,19 @@ export function LenisProvider({
     let isCancelled = false;
     let cleanupLenis = () => undefined;
 
+    if (typeof window === "undefined") {
+      return;
+    }
+
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+    const isCoarsePointer = window.matchMedia("(pointer: coarse)").matches;
+
+    if (prefersReducedMotion || isCoarsePointer) {
+      return;
+    }
+
     const startLenis = async () => {
       const { default: Lenis } = await import("lenis");
       if (isCancelled) {
