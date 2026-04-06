@@ -25,6 +25,7 @@ export function ServicesSection() {
             whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
             variants={fadeUp}
+            style={{ willChange: "transform, opacity" }}
             className="max-w-4xl mb-16 md:mb-28"
           >
             <h2 className="font-title text-5xl sm:text-7xl md:text-8xl lg:text-8xl font-bold tracking-tight mb-6 md:mb-8 text-foreground leading-[0.9]">
@@ -45,6 +46,7 @@ export function ServicesSection() {
               whileInView="visible"
               viewport={{ once: true, margin: "-100px" }}
               variants={fadeUp}
+              style={{ willChange: "transform, opacity" }}
               className="md:col-span-2 bg-surface p-8 md:p-12 lg:p-16 rounded-3xl md:rounded-[3rem] flex flex-col justify-between group overflow-hidden relative border border-foreground/5 md:hover:border-foreground/10 md:hover:shadow-xl transition-all duration-700"
             >
               <div className="flex justify-between items-start relative z-10">
@@ -72,6 +74,7 @@ export function ServicesSection() {
               whileInView="visible"
               viewport={{ once: true, margin: "-100px" }}
               variants={fadeUp}
+              style={{ willChange: "transform, opacity" }}
               className="bg-accent p-8 md:p-12 lg:p-16 rounded-3xl md:rounded-[3rem] flex flex-col justify-between text-background group relative overflow-hidden transition-transform duration-500 md:hover:-translate-y-2 md:hover:shadow-2xl"
             >
               <div className="flex justify-between items-start relative z-10">
@@ -97,6 +100,7 @@ export function ServicesSection() {
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: "-100px" }}
+              style={{ willChange: "transform, opacity" }}
               variants={fadeUp}
               className="bg-surface p-8 md:p-12 lg:p-16 rounded-3xl md:rounded-[3rem] flex flex-col justify-between border border-foreground/5 md:hover:border-foreground/10 md:hover:shadow-xl transition-all duration-700 relative overflow-hidden group"
             >
@@ -121,6 +125,7 @@ export function ServicesSection() {
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: "-100px" }}
+              style={{ willChange: "transform, opacity" }}
               variants={fadeUp}
               className="md:col-span-2 bg-surface text-foreground p-8 md:p-12 lg:p-16 rounded-3xl md:rounded-[3rem] flex flex-col md:flex-row items-start md:items-center justify-between border border-foreground/5 md:hover:border-foreground/10 md:hover:shadow-xl transition-all duration-700 overflow-hidden relative group"
             >
