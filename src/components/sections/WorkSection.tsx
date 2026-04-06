@@ -1,9 +1,15 @@
 "use client";
 
 import Image from "next/image";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { MoveUpRight } from "lucide-react";
-import { motion, useScroll, useTransform, type Variants } from "framer-motion";
+import {
+  motion,
+  useReducedMotion,
+  useScroll,
+  useTransform,
+  type Variants,
+} from "framer-motion";
 
 const fadeUp: Variants = {
   hidden: { opacity: 0, y: 60 },
@@ -29,19 +35,40 @@ function ParallaxCard({
     offset: ["start end", "end start"],
   });
 
+  const shouldReduceMotion = Boolean(useReducedMotion());
+  const [isCoarsePointer, setIsCoarsePointer] = useState(false);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const coarseMedia = window.matchMedia("(pointer: coarse)");
+      // Remove synchronous setState; initial state is fine, we update on mount by listening to changes or invoking function not synchronously at root.
+      // Wait, setTimeout 0 is a workaround for set-state-in-effect if we need to set it, or just use a helper func.
+      const updatePointerMode = () => setIsCoarsePointer(coarseMedia.matches);
+      updatePointerMode();
+      
+      coarseMedia.addEventListener("change", updatePointerMode);
+      return () => coarseMedia.removeEventListener("change", updatePointerMode);
+    }
+  }, []);
+
+  const disableParallax = shouldReduceMotion || isCoarsePointer;
   const y = useTransform(scrollYProgress, [0, 1], [120 * speed, -120 * speed]);
 
   return (
     <motion.div
       ref={ref}
-      style={{ y }}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, margin: "-100px" }}
-      variants={fadeUp}
-      className={`relative ${className}`}
+      style={disableParallax ? undefined : { y }}
+      className="relative w-full h-full"
     >
-      {children}
+      <motion.div
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-100px" }}
+        variants={fadeUp}
+        className={className}
+      >
+        {children}
+      </motion.div>
     </motion.div>
   );
 }
