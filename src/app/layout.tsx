@@ -8,7 +8,6 @@ const SITE_NAME = "Coralab";
 const SITE_EMAIL = "hola@coralab.dev";
 const SITE_DESCRIPTION =
   "Coralab es un espacio dedicado a crear sitios web y soluciones digitales sencillas para negocios que buscan una presencia profesional en internet, sin complicaciones ni promesas irreales.";
-const googleVerification = process.env.GOOGLE_SITE_VERIFICATION;
 
 const arvo = Arvo({
   variable: "--font-arvo",
@@ -57,11 +56,6 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/",
   },
-  verification: googleVerification
-    ? {
-        google: googleVerification,
-      }
-    : undefined,
   robots: {
     index: true,
     follow: true,
