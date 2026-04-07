@@ -71,7 +71,7 @@ export default function OpenGraphImage() {
             color: "rgba(26, 28, 27, 0.5)",
           }}
         >
-          coralab.vercel.app
+          coralab.dev
         </div>
       </div>
     ),

@@ -41,11 +41,9 @@ function ParallaxCard({
   useEffect(() => {
     if (typeof window !== "undefined") {
       const coarseMedia = window.matchMedia("(pointer: coarse)");
-      // Remove synchronous setState; initial state is fine, we update on mount by listening to changes or invoking function not synchronously at root.
-      // Wait, setTimeout 0 is a workaround for set-state-in-effect if we need to set it, or just use a helper func.
       const updatePointerMode = () => setIsCoarsePointer(coarseMedia.matches);
       updatePointerMode();
-      
+
       coarseMedia.addEventListener("change", updatePointerMode);
       return () => coarseMedia.removeEventListener("change", updatePointerMode);
     }
@@ -77,35 +75,34 @@ export function WorkSection() {
   return (
     <section
       id="trabajo"
-      className="relative z-20 w-full bg-[#f4f4f2] rounded-t-[3rem] md:rounded-t-[5rem] border-t border-stone-300/80 -mt-12 pt-12"
+      className="relative z-20 w-full rounded-t-[3rem] border-t border-stone-300/80 bg-[#f4f4f2] pt-12 md:rounded-t-[5rem] -mt-12"
     >
-      <div className="px-6 md:px-8 max-w-7xl mx-auto py-24 md:py-40">
+      <div className="mx-auto max-w-7xl px-6 py-24 md:px-8 md:py-40">
         <motion.div
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
           variants={fadeUp}
-          className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 md:mb-24 gap-8 md:gap-4"
+          className="mb-16 flex flex-col items-start justify-between gap-8 md:mb-24 md:flex-row md:items-end md:gap-4"
         >
-          <h2 className="font-title text-5xl sm:text-7xl md:text-8xl font-bold tracking-tight text-foreground leading-[0.9]">
+          <h2 className="font-title text-5xl leading-[0.9] font-bold tracking-tight text-foreground sm:text-7xl md:text-8xl">
             Trabajo
             <br />
             <span className="font-subtitle italic font-light text-accent">
               Seleccionado
             </span>
           </h2>
-          <p className="font-body italic text-xl md:text-2xl text-foreground/90 max-w-sm leading-relaxed">
-            Proyectos reales, enfocados en resolver problemas. 
+          <p className="font-body max-w-sm text-xl leading-relaxed italic text-foreground/90 md:text-2xl">
+            Proyectos reales, enfocados en resolver problemas.
           </p>
         </motion.div>
 
         <div className="space-y-12 md:space-y-32">
-          {/* Proyecto 1: Momento (Full Width) */}
           <ParallaxCard
             speed={0.5}
-            className="group relative bg-surface rounded-3xl sm:rounded-4xl md:rounded-[3rem] flex flex-col md:flex-row items-center shadow-2xl transition-[box-shadow,border] duration-700 border border-foreground/5 overflow-hidden"
+            className="group relative flex flex-col items-center overflow-hidden rounded-3xl border border-foreground/5 bg-surface shadow-2xl transition-[box-shadow,border] duration-700 md:flex-row md:rounded-[3rem]"
           >
-            <div className="w-full md:w-3/5 h-64 sm:h-80 md:h-136 lg:h-160 overflow-hidden relative bg-foreground/5">
+            <div className="relative h-64 w-full overflow-hidden bg-foreground/5 sm:h-80 md:h-136 md:w-3/5 lg:h-160">
               <Image
                 src="/Project/momento.webp"
                 alt="Proyecto Momento"
@@ -115,7 +112,7 @@ export function WorkSection() {
               />
               <div className="absolute inset-0 bg-foreground/5 mix-blend-multiply transition-opacity duration-700 group-hover:opacity-0" />
             </div>
-            <div className="w-full md:w-2/5 p-8 md:p-12 lg:p-16 flex flex-col justify-center bg-surface relative z-10">
+            <div className="relative z-10 flex w-full flex-col justify-center bg-surface p-8 md:w-2/5 md:p-12 lg:p-16">
               <div className="mb-6 flex space-x-2">
                 <span className="font-body rounded-full border border-foreground/10 px-4 py-1.5 text-[10px] font-bold uppercase tracking-[0.3em] text-accent">
                   Web App
@@ -124,27 +121,27 @@ export function WorkSection() {
                   2026
                 </span>
               </div>
-              <h3 className="font-subtitle text-4xl md:text-5xl lg:text-6xl font-bold mb-4 md:mb-6 tracking-tighter text-foreground">
+              <h3 className="font-subtitle mb-4 text-4xl font-bold tracking-tighter text-foreground md:mb-6 md:text-5xl lg:text-6xl">
                 Momento
               </h3>
-              <p className="font-body text-lg md:text-xl text-foreground/60 leading-relaxed mb-8 md:mb-12 italic">
-                Todas las fotos, en un solo lugar. Momento es una aplicación web que centraliza tus recuerdos visuales y se proyectan en tiempo real.
+              <p className="font-body mb-8 text-lg leading-relaxed italic text-foreground/60 md:mb-12 md:text-xl">
+                Todas las fotos, en un solo lugar. Momento es una aplicación
+                web que centraliza tus recuerdos visuales y se proyectan en
+                tiempo real.
               </p>
-              <a className="font-body group/btn relative inline-flex w-fit items-center gap-4 border-b border-foreground/20 pb-2 text-[10px] font-bold uppercase tracking-[0.3em] text-foreground transition-colors hover:border-accent hover:text-accent cursor-pointer">
+              <a className="font-body group/btn relative inline-flex w-fit cursor-pointer items-center gap-4 border-b border-foreground/20 pb-2 text-[10px] font-bold uppercase tracking-[0.3em] text-foreground transition-colors hover:border-accent hover:text-accent">
                 Explorar Proyecto{" "}
-                <MoveUpRight className="w-4 h-4 transition-transform duration-300 group-hover/btn:-translate-y-1 group-hover/btn:translate-x-1" />
+                <MoveUpRight className="h-4 w-4 transition-transform duration-300 group-hover/btn:-translate-y-1 group-hover/btn:translate-x-1" />
               </a>
             </div>
           </ParallaxCard>
 
-          {/* Fila Asimétrica */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-start">
-            {/* Proyecto 2 */}
+          <div className="grid grid-cols-1 items-start gap-8 md:grid-cols-2 md:gap-12 lg:gap-16">
             <ParallaxCard
               speed={0.4}
-              className="group bg-surface rounded-3xl sm:rounded-4xl shadow-2xl md:rounded-[3rem] border border-foreground/5 hover:shadow-2xl transition-[box-shadow,border] duration-700 overflow-hidden"
+              className="group overflow-hidden rounded-3xl border border-foreground/5 bg-surface shadow-2xl transition-[box-shadow,border] duration-700 hover:shadow-2xl md:rounded-[3rem]"
             >
-              <div className="h-64 sm:h-72 md:h-112 lg:h-128 overflow-hidden relative bg-foreground/5">
+              <div className="relative h-64 overflow-hidden bg-foreground/5 sm:h-72 md:h-112 lg:h-128">
                 <Image
                   src="/Project/Apex.webp"
                   alt="Proyecto Apex"
@@ -161,24 +158,25 @@ export function WorkSection() {
                     Performance
                   </span>
                   <span className="font-body rounded-full border border-foreground/10 px-4 py-1.5 text-[10px] font-bold uppercase tracking-[0.3em] text-foreground/40">
-                  2025
-                 </span>
+                    2025
+                  </span>
                 </div>
-                <h3 className="font-subtitle text-3xl md:text-4xl lg:text-5xl font-bold mb-4 tracking-tighter leading-none text-foreground">
+                <h3 className="font-subtitle mb-4 text-3xl leading-none font-bold tracking-tighter text-foreground md:text-4xl lg:text-5xl">
                   Apex
                 </h3>
-                <p className="font-body text-base md:text-lg text-foreground/60 italic">
-                  Pagina diseñada para mostrar servicios, generar confianza y facilitar el contacto con nuevos clientes, con un diseño moderno y profesional que refleja la identidad de la marca.
+                <p className="font-body text-base italic text-foreground/60 md:text-lg">
+                  Página diseñada para mostrar servicios, generar confianza y
+                  facilitar el contacto con nuevos clientes, con un diseño
+                  moderno y profesional que refleja la identidad de la marca.
                 </p>
               </div>
             </ParallaxCard>
 
-            {/* Proyecto 3 */}
             <ParallaxCard
               speed={-0.2}
-              className="group bg-surface rounded-3xl sm:rounded-4xl shadow-2xl md:rounded-[3rem] border border-foreground/5 hover:shadow-2xl transition-[box-shadow,border] duration-700 md:mt-32 overflow-hidden"
+              className="group overflow-hidden rounded-3xl border border-foreground/5 bg-surface shadow-2xl transition-[box-shadow,border] duration-700 hover:shadow-2xl md:mt-32 md:rounded-[3rem]"
             >
-              <div className="h-64 sm:h-72 md:h-112 lg:h-128 overflow-hidden relative bg-foreground/5">
+              <div className="relative h-64 overflow-hidden bg-foreground/5 sm:h-72 md:h-112 lg:h-128">
                 <Image
                   src="/Project/streetware.webp"
                   alt="Proyecto Streetware"
@@ -194,14 +192,16 @@ export function WorkSection() {
                     Performance
                   </span>
                   <span className="font-body rounded-full border border-foreground/10 px-4 py-1.5 text-[10px] font-bold uppercase tracking-[0.3em] text-foreground/40">
-                  2025
+                    2025
                   </span>
                 </div>
-                <h3 className="font-subtitle text-3xl md:text-4xl lg:text-5xl font-bold mb-4 tracking-tighter leading-none text-foreground">
+                <h3 className="font-subtitle mb-4 text-3xl leading-none font-bold tracking-tighter text-foreground md:text-4xl lg:text-5xl">
                   Streetware
                 </h3>
-                <p className="font-body text-base md:text-lg text-foreground/60 italic">
-                  Catalogo online para una marca de ropa urbana, con un diseño audaz y moderno que refleja la identidad de la marca y atrae a su público objetivo.
+                <p className="font-body text-base italic text-foreground/60 md:text-lg">
+                  Catálogo online para una marca de ropa urbana, con un diseño
+                  audaz y moderno que refleja la identidad de la marca y atrae
+                  a su público objetivo.
                 </p>
               </div>
             </ParallaxCard>

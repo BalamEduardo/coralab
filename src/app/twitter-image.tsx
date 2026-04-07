@@ -70,7 +70,7 @@ export default function TwitterImage() {
             color: "rgba(249, 249, 247, 0.56)",
           }}
         >
-          https://coralab.vercel.app
+          https://coralab.dev
         </div>
       </div>
     ),

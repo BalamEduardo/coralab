@@ -2,7 +2,13 @@
 
 import Image from "next/image";
 import { useRef } from "react";
-import { motion, useReducedMotion, useScroll, useTransform, type Variants } from "framer-motion";
+import {
+  motion,
+  useReducedMotion,
+  useScroll,
+  useTransform,
+  type Variants,
+} from "framer-motion";
 
 const fadeUp: Variants = {
   hidden: { opacity: 0, y: 40 },
@@ -22,25 +28,32 @@ export function AboutSection() {
     offset: ["start end", "end start"],
   });
 
-  const yImage1 = useTransform(scrollYProgress, [0, 1], ["0%", shouldReduceMotion ? "0%" : "8%"]);
-  const yImage2 = useTransform(scrollYProgress, [0, 1], [shouldReduceMotion ? "0%" : "5%", shouldReduceMotion ? "0%" : "-5%"]);
+  const yImage1 = useTransform(
+    scrollYProgress,
+    [0, 1],
+    ["0%", shouldReduceMotion ? "0%" : "8%"],
+  );
+  const yImage2 = useTransform(
+    scrollYProgress,
+    [0, 1],
+    [shouldReduceMotion ? "0%" : "5%", shouldReduceMotion ? "0%" : "-5%"],
+  );
 
   return (
     <section
       id="nosotros"
       ref={sectionRef}
-      className="relative z-25 w-full bg-surface rounded-t-[3rem] md:rounded-t-[5rem] shadow-[0_-30px_60px_rgba(0,0,0,0.08)] border-t border-foreground/5 -mt-12 pt-32 pb-24 md:pt-48 md:pb-40 overflow-hidden"
+      className="relative z-25 w-full overflow-hidden rounded-t-[3rem] border-t border-foreground/5 bg-surface pt-32 pb-24 shadow-[0_-30px_60px_rgba(0,0,0,0.08)] md:rounded-t-[5rem] md:pt-48 md:pb-40 -mt-12"
     >
-      <div className="max-w-360 mx-auto px-6 md:px-12 flex flex-col">
-        {/* Editorial Typography Monument */}
-        <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-end mb-32 md:mb-48">
+      <div className="mx-auto flex max-w-360 flex-col px-6 md:px-12">
+        <div className="mb-32 grid w-full grid-cols-1 items-end gap-12 lg:grid-cols-12 lg:gap-8 md:mb-48">
           <div className="col-span-1 lg:col-span-8">
             <motion.h2
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: "-100px" }}
               variants={fadeUp}
-              className="font-title relative text-5xl sm:text-7xl md:text-8xl lg:text-8xl leading-[0.85] tracking-tighter text-foreground"
+              className="font-title relative text-5xl leading-[0.85] tracking-tighter text-foreground sm:text-7xl md:text-8xl lg:text-8xl"
             >
               Diseñamos <br />
               <span className="font-subtitle italic font-light text-accent">
@@ -51,7 +64,7 @@ export function AboutSection() {
               lo importante.
             </motion.h2>
           </div>
-          <div className="col-span-1 lg:col-span-4 pl-0 lg:pl-12 flex flex-col justify-end pb-2">
+          <div className="col-span-1 flex flex-col justify-end pb-2 pl-0 lg:col-span-4 lg:pl-12">
             <motion.div
               className="relative"
               initial="hidden"
@@ -59,23 +72,24 @@ export function AboutSection() {
               viewport={{ once: true, margin: "-100px" }}
               variants={fadeUp}
             >
-              <p className="font-body text-foreground text-lg md:text-xl font-light italic leading-relaxed mb-8">
-                En Coralab no buscamos hacer páginas por hacerlas.
-                Estamos construyendo soluciones digitales simples, claras y funcionales para negocios reales.
-
-                Cada proyecto es una forma de aprender, mejorar y crear algo que realmente sirva.
+              <p className="font-body mb-8 text-lg leading-relaxed font-light italic text-foreground md:text-xl">
+                En Coralab no buscamos hacer páginas por hacerlas. Estamos
+                construyendo soluciones digitales simples, claras y funcionales
+                para negocios reales.
               </p>
-              <p className="font-body text-foreground/90 font-medium uppercase tracking-[0.2em] text-[10px] flex items-center gap-4">
+              <p className="font-body mb-8 text-lg leading-relaxed font-light italic text-foreground md:text-xl">
+                Cada proyecto es una forma de aprender, mejorar y crear algo
+                que realmente sirva.
+              </p>
+              <p className="font-body flex items-center gap-4 text-[10px] font-medium uppercase tracking-[0.2em] text-foreground/90">
                 — Coralab
               </p>
             </motion.div>
           </div>
         </div>
 
-        {/* Split Parallax Gallery Layout */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 relative w-full items-start">
-          {/* Left Image (Tall) */}
-          <div className="relative md:col-span-5 h-[350px] sm:h-[450px] md:h-auto md:aspect-3/4 overflow-hidden rounded-3xl md:rounded-4xl bg-foreground/5">
+        <div className="relative grid w-full grid-cols-1 items-start gap-8 md:grid-cols-12 md:gap-12">
+          <div className="relative h-[350px] overflow-hidden rounded-3xl bg-foreground/5 sm:h-[450px] md:col-span-5 md:h-auto md:aspect-3/4 md:rounded-4xl">
             <motion.div
               style={{ y: yImage1, willChange: "transform" }}
               className="relative h-full w-full scale-[1.15] transition-transform duration-[1.5s] md:hover:scale-100"
@@ -88,11 +102,10 @@ export function AboutSection() {
                 className="object-cover"
               />
             </motion.div>
-            <div className="absolute inset-0 bg-foreground/5 mix-blend-color pointer-events-none"></div>
+            <div className="pointer-events-none absolute inset-0 bg-foreground/5 mix-blend-color"></div>
           </div>
 
-          {/* Right Column (Text + Landscape Image) */}
-          <div className="relative md:col-span-7 flex flex-col gap-12 md:gap-24 md:pt-20">
+          <div className="relative flex flex-col gap-12 md:col-span-7 md:gap-24 md:pt-20">
             <motion.div
               initial="hidden"
               whileInView="visible"
@@ -100,27 +113,29 @@ export function AboutSection() {
               variants={fadeUp}
               className="relative max-w-xl md:pl-12 xl:pl-24"
             >
-              <h3 className="font-subtitle text-3xl md:text-5xl lg:text-6xl tracking-tighter text-foreground mb-8">
+              <h3 className="font-subtitle mb-8 text-3xl tracking-tighter text-foreground md:text-5xl lg:text-6xl">
                 Nuestro
                 <br />
                 <span className="font-subtitle italic font-light text-accent">
                   Enfoque
                 </span>
               </h3>
-              <p className="font-body text-foreground/90 text-lg md:text-xl leading-relaxed font-light">
-                Cada proyecto es distinto, entendemos el contexto, los objetivos y las necesidades de cada cliente para crear soluciones digitales a medida que realmente resuelvan lo importante. 
-                Nuestro objetivo es crear experiencias digitales que no solo se vean bien, sino que también funcionen bien y generen resultados reales para nuestros clientes. 
-                Estamos aquí para ayudarte a
-                {" "}
+              <p className="font-body text-lg leading-relaxed font-light text-foreground/90 md:text-xl">
+                Cada proyecto es distinto. Entendemos el contexto, los
+                objetivos y las necesidades de cada cliente para crear
+                soluciones digitales a medida que realmente resuelvan lo
+                importante. Nuestro objetivo es crear experiencias digitales que
+                no solo se vean bien, sino que también funcionen bien y generen
+                resultados reales para nuestros clientes. Estamos aquí para
+                ayudarte a{" "}
                 <span className="font-subtitle italic text-accent">
                   construir tu presencia digital
                 </span>{" "}
-                 de manera efectiva y auténtica.
+                de manera efectiva y auténtica.
               </p>
             </motion.div>
 
-            {/* Right Lower Image (Landscape Parallax) */}
-            <div className="relative w-full h-[250px] sm:h-[350px] md:h-[500px] overflow-hidden rounded-3xl md:rounded-4xl bg-foreground/5 mt-auto">
+            <div className="relative mt-auto h-[250px] w-full overflow-hidden rounded-3xl bg-foreground/5 sm:h-[350px] md:h-[500px] md:rounded-4xl">
               <motion.div
                 style={{ y: yImage2, willChange: "transform" }}
                 className="relative h-full w-full scale-[1.15] opacity-90 transition-transform duration-[1.5s] md:hover:scale-100"
@@ -133,7 +148,7 @@ export function AboutSection() {
                   className="object-cover"
                 />
               </motion.div>
-              <div className="absolute inset-0 bg-accent/5 mix-blend-color pointer-events-none"></div>
+              <div className="pointer-events-none absolute inset-0 bg-accent/5 mix-blend-color"></div>
             </div>
           </div>
         </div>

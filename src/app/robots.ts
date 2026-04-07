@@ -6,7 +6,7 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: "*",
       allow: "/",
     },
-    sitemap: "https://coralab.vercel.app/sitemap.xml",
-    host: "https://coralab.vercel.app",
+    sitemap: "https://coralab.dev/sitemap.xml",
+    host: "https://coralab.dev",
   };
 }

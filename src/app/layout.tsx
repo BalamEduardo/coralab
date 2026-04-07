@@ -3,6 +3,13 @@ import { Arvo, Lora, Molengo } from "next/font/google";
 import { LenisProvider } from "@/components/LenisProvider";
 import "./globals.css";
 
+const SITE_URL = "https://coralab.dev";
+const SITE_NAME = "Coralab";
+const SITE_EMAIL = "hola@coralab.dev";
+const SITE_DESCRIPTION =
+  "Coralab es un espacio dedicado a crear sitios web y soluciones digitales sencillas para negocios que buscan una presencia profesional en internet, sin complicaciones ni promesas irreales.";
+const googleVerification = process.env.GOOGLE_SITE_VERIFICATION;
+
 const arvo = Arvo({
   variable: "--font-arvo",
   subsets: ["latin"],
@@ -26,31 +33,35 @@ const molengo = Molengo({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://coralab.vercel.app"),
+  metadataBase: new URL(SITE_URL),
   title: {
-    default: "Coralab | Presencia digital sin complicaciones",
-    template: "%s | Coralab",
+    default: `${SITE_NAME} | Presencia digital sin complicaciones`,
+    template: `%s | ${SITE_NAME}`,
   },
-  description:
-    "Coralab es un espacio dedicado a crear sitios web y soluciones digitales sencillas para negocios que buscan una presencia profesional en internet, sin complicaciones ni promesas irreales.",
-  applicationName: "Coralab",
+  description: SITE_DESCRIPTION,
+  applicationName: SITE_NAME,
   keywords: [
-    "Coralab",
+    SITE_NAME,
     "desarrollo web",
-    "diseno web",
+    "diseño web",
     "presencia digital",
     "sitios web para negocios",
     "soluciones digitales",
     "landing pages",
     "web design mexico",
   ],
-  authors: [{ name: "Coralab", url: "https://coralab.vercel.app" }],
-  creator: "Coralab",
-  publisher: "Coralab",
+  authors: [{ name: SITE_NAME, url: SITE_URL }],
+  creator: SITE_NAME,
+  publisher: SITE_NAME,
   category: "technology",
   alternates: {
     canonical: "/",
   },
+  verification: googleVerification
+    ? {
+        google: googleVerification,
+      }
+    : undefined,
   robots: {
     index: true,
     follow: true,
@@ -65,9 +76,9 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "es_MX",
-    url: "https://coralab.vercel.app",
-    siteName: "Coralab",
-    title: "Coralab | Presencia digital sin complicaciones",
+    url: SITE_URL,
+    siteName: SITE_NAME,
+    title: `${SITE_NAME} | Presencia digital sin complicaciones`,
     description:
       "Creamos sitios web y soluciones digitales claras, funcionales y enfocadas en negocios reales que buscan una presencia profesional en internet.",
     images: [
@@ -81,12 +92,30 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Coralab | Presencia digital sin complicaciones",
+    title: `${SITE_NAME} | Presencia digital sin complicaciones`,
     description:
       "Sitios web y soluciones digitales claras, funcionales y pensadas para negocios reales.",
     images: ["/twitter-image"],
   },
 };
+
+const structuredData = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: SITE_NAME,
+    url: SITE_URL,
+    email: SITE_EMAIL,
+    description: SITE_DESCRIPTION,
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: SITE_NAME,
+    url: SITE_URL,
+    description: SITE_DESCRIPTION,
+  },
+];
 
 export default function RootLayout({
   children,
@@ -99,6 +128,12 @@ export default function RootLayout({
       className={`${arvo.variable} ${lora.variable} ${molengo.variable}`}
     >
       <body className="min-h-screen bg-background font-sans text-foreground antialiased selection:bg-accent/25">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(structuredData).replace(/</g, "\\u003c"),
+          }}
+        />
         <LenisProvider>{children}</LenisProvider>
       </body>
     </html>

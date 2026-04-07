@@ -33,7 +33,7 @@ export function ContactSection() {
           transition={{ duration: 0.8 }}
           className="font-body mb-8 text-[10px] font-bold tracking-[0.4em] text-foreground/50 uppercase md:mb-12 md:text-sm"
         >
-          Listo para evolucionar?
+          ¿Listo para evolucionar?
         </motion.p>
 
         <motion.a
@@ -42,10 +42,10 @@ export function ContactSection() {
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 1, delay: 0.2 }}
           className="inline-block group max-w-full"
-          href="mailto:coralab.web@gmail.com  "
+          href="mailto:hola@coralab.dev"
         >
           <span className="font-subtitle block w-full text-center cursor-pointer border-b-[3px] border-accent pb-2 text-[6.5vw] sm:text-5xl md:border-b-[6px] md:pb-6 md:text-7xl lg:text-[6rem] leading-none italic text-accent transition-colors duration-700 group-hover:border-foreground group-hover:text-foreground truncate">
-            coralab.web@gmail.com
+            hola@coralab.dev
           </span>
         </motion.a>
       </div>
