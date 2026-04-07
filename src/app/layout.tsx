@@ -33,6 +33,20 @@ const molengo = Molengo({
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "48x48", type: "image/x-icon" },
+      { url: "/icon-192.png", sizes: "192x192", type: "image/png" },
+    ],
+    shortcut: ["/favicon.ico"],
+    apple: [
+      {
+        url: "/apple-touch-icon.png",
+        sizes: "180x180",
+        type: "image/png",
+      },
+    ],
+  },
   title: {
     default: `${SITE_NAME} | Presencia digital sin complicaciones`,
     template: `%s | ${SITE_NAME}`,
