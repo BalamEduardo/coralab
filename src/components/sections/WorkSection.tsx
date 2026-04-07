@@ -56,7 +56,7 @@ function ParallaxCard({
     <motion.div
       ref={ref}
       style={disableParallax ? undefined : { y }}
-      className="relative w-full h-full"
+      className="relative h-full w-full"
     >
       <motion.div
         initial="hidden"
@@ -71,11 +71,25 @@ function ParallaxCard({
   );
 }
 
+function ProjectLink({ href }: { href: string }) {
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noreferrer"
+      className="font-body group/btn relative inline-flex w-fit items-center gap-4 border-b border-foreground/20 pb-2 text-[10px] font-bold uppercase tracking-[0.3em] text-foreground transition-colors hover:border-accent hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+    >
+      Explorar Proyecto
+      <MoveUpRight className="h-4 w-4 transition-transform duration-300 group-hover/btn:-translate-y-1 group-hover/btn:translate-x-1" />
+    </a>
+  );
+}
+
 export function WorkSection() {
   return (
     <section
       id="trabajo"
-      className="relative z-20 w-full rounded-t-[3rem] border-t border-stone-300/80 bg-[#f4f4f2] pt-12 md:rounded-t-[5rem] -mt-12"
+      className="relative z-20 -mt-12 w-full rounded-t-[3rem] border-t border-stone-300/80 bg-[#f4f4f2] pt-12 md:rounded-t-[5rem]"
     >
       <div className="mx-auto max-w-7xl px-6 py-24 md:px-8 md:py-40">
         <motion.div
@@ -85,10 +99,10 @@ export function WorkSection() {
           variants={fadeUp}
           className="mb-16 flex flex-col items-start justify-between gap-8 md:mb-24 md:flex-row md:items-end md:gap-4"
         >
-          <h2 className="font-title text-5xl leading-[0.9] font-bold tracking-tight text-foreground sm:text-7xl md:text-8xl">
+          <h2 className="font-title text-5xl font-bold leading-[0.9] tracking-tight text-foreground sm:text-7xl md:text-8xl">
             Trabajo
             <br />
-            <span className="font-subtitle italic font-light text-accent">
+            <span className="font-subtitle font-light italic text-accent">
               Seleccionado
             </span>
           </h2>
@@ -129,10 +143,7 @@ export function WorkSection() {
                 web que centraliza tus recuerdos visuales y se proyectan en
                 tiempo real.
               </p>
-              <a className="font-body group/btn relative inline-flex w-fit cursor-pointer items-center gap-4 border-b border-foreground/20 pb-2 text-[10px] font-bold uppercase tracking-[0.3em] text-foreground transition-colors hover:border-accent hover:text-accent">
-                Explorar Proyecto{" "}
-                <MoveUpRight className="h-4 w-4 transition-transform duration-300 group-hover/btn:-translate-y-1 group-hover/btn:translate-x-1" />
-              </a>
+              <ProjectLink href="https://momento-ten-sigma.vercel.app/" />
             </div>
           </ParallaxCard>
 
@@ -161,7 +172,7 @@ export function WorkSection() {
                     2025
                   </span>
                 </div>
-                <h3 className="font-subtitle mb-4 text-3xl leading-none font-bold tracking-tighter text-foreground md:text-4xl lg:text-5xl">
+                <h3 className="font-subtitle mb-4 text-3xl font-bold leading-none tracking-tighter text-foreground md:text-4xl lg:text-5xl">
                   Apex
                 </h3>
                 <p className="font-body text-base italic text-foreground/60 md:text-lg">
@@ -169,6 +180,9 @@ export function WorkSection() {
                   facilitar el contacto con nuevos clientes, con un diseño
                   moderno y profesional que refleja la identidad de la marca.
                 </p>
+                <div className="mt-8">
+                  <ProjectLink href="https://apex-cora.vercel.app/" />
+                </div>
               </div>
             </ParallaxCard>
 
@@ -195,7 +209,7 @@ export function WorkSection() {
                     2025
                   </span>
                 </div>
-                <h3 className="font-subtitle mb-4 text-3xl leading-none font-bold tracking-tighter text-foreground md:text-4xl lg:text-5xl">
+                <h3 className="font-subtitle mb-4 text-3xl font-bold leading-none tracking-tighter text-foreground md:text-4xl lg:text-5xl">
                   Streetware
                 </h3>
                 <p className="font-body text-base italic text-foreground/60 md:text-lg">

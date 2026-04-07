@@ -34,15 +34,39 @@ export function Navbar({
   const shouldReduceMotion = Boolean(useReducedMotion());
   const menuId = useId();
 
+  const closeMenu = () => setIsOpen(false);
+  const toggleMenu = () => setIsOpen((open) => !open);
+
   useEffect(() => {
     const handleEscape = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
-        setIsOpen(false);
+        closeMenu();
       }
     };
 
     window.addEventListener("keydown", handleEscape);
     return () => window.removeEventListener("keydown", handleEscape);
+  }, []);
+
+  useEffect(() => {
+    const handleHashChange = () => {
+      closeMenu();
+    };
+
+    window.addEventListener("hashchange", handleHashChange);
+    return () => window.removeEventListener("hashchange", handleHashChange);
+  }, []);
+
+  useEffect(() => {
+    const desktopMedia = window.matchMedia("(min-width: 768px)");
+    const handleViewportChange = (event: MediaQueryListEvent) => {
+      if (event.matches) {
+        closeMenu();
+      }
+    };
+
+    desktopMedia.addEventListener("change", handleViewportChange);
+    return () => desktopMedia.removeEventListener("change", handleViewportChange);
   }, []);
 
   return (
@@ -67,7 +91,7 @@ export function Navbar({
           <a
             href="#top"
             className="font-title shrink-0 rounded-full text-lg font-bold tracking-tight text-foreground transition-colors hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent sm:text-xl"
-            onClick={() => setIsOpen(false)}
+            onClick={closeMenu}
           >
             Coralab.
           </a>
@@ -88,7 +112,7 @@ export function Navbar({
           <div className="flex items-center gap-2">
             <a
               href={ctaHref}
-              onClick={() => setIsOpen(false)}
+              onClick={closeMenu}
               className="font-body group flex min-h-10 items-center justify-center gap-2 rounded-full bg-foreground px-4 text-[10px] font-bold uppercase tracking-[0.22em] text-background transition-all hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background sm:min-h-11 sm:px-6 sm:tracking-[0.25em]"
             >
               Hablemos
@@ -100,11 +124,12 @@ export function Navbar({
 
             <button
               type="button"
-              onClick={() => setIsOpen((open) => !open)}
+              onClick={toggleMenu}
               className="flex h-10 w-10 items-center justify-center rounded-full text-foreground transition-colors hover:bg-foreground/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent md:hidden"
               aria-controls={menuId}
               aria-expanded={isOpen}
-              aria-label={isOpen ? "Cerrar menú" : "Abrir menú"}
+              aria-haspopup="menu"
+              aria-label={isOpen ? "Cerrar menu" : "Abrir menu"}
             >
               <motion.span
                 animate={{ rotate: isOpen ? 180 : 0, scale: isOpen ? 0.92 : 1 }}
@@ -124,6 +149,7 @@ export function Navbar({
           {isOpen && (
             <motion.div
               id={menuId}
+              role="menu"
               initial={{ height: 0, opacity: 0 }}
               animate={{ height: "auto", opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
@@ -168,7 +194,8 @@ export function Navbar({
                   >
                     <a
                       href={item.href}
-                      onClick={() => setIsOpen(false)}
+                      role="menuitem"
+                      onClick={closeMenu}
                       className="font-body block w-full rounded-2xl px-4 py-3 text-center text-[11px] font-bold uppercase tracking-[0.25em] text-foreground/80 transition-colors hover:bg-foreground/5 hover:text-foreground active:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
                     >
                       {item.label}
