@@ -1,11 +1,21 @@
 "use client";
 
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 
 export function StoryMarquee() {
   const sectionRef = useRef<HTMLDivElement | null>(null);
   const shouldReduceMotion = Boolean(useReducedMotion());
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = window.matchMedia("(max-width: 767px)");
+    setIsMobile(checkMobile.matches);
+    
+    const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches);
+    checkMobile.addEventListener("change", handler);
+    return () => checkMobile.removeEventListener("change", handler);
+  }, []);
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -24,10 +34,12 @@ export function StoryMarquee() {
       <div className="flex w-max flex-col gap-4 md:gap-6 lg:gap-8">
         {/* Primera linea: moviendose hacia la izquierda */}
         <motion.div
-          className="font-title flex whitespace-nowrap text-[3rem] leading-none font-black tracking-tight sm:text-[9vw] md:text-[8vw] lg:text-[7vw]"
-          style={{ x: shouldReduceMotion ? "0%" : marqueeX1 }}
+          className={`font-title flex whitespace-nowrap text-[3rem] leading-none font-black tracking-tight sm:text-[9vw] md:text-[8vw] lg:text-[7vw] ${
+            isMobile && !shouldReduceMotion ? "animate-marquee-left" : ""
+          }`}
+          style={isMobile ? undefined : { x: shouldReduceMotion ? "0%" : marqueeX1 }}
         >
-          {Array.from({ length: 6 }).map((_, i) => (
+          {Array.from({ length: 10 }).map((_, i) => (
             <div key={`row1-${i}`} className="flex items-center">
               <span className="mx-3 text-foreground uppercase sm:mx-6">
                 PRESENCIA DIGITAL
@@ -53,10 +65,12 @@ export function StoryMarquee() {
 
         {/* Segunda linea: moviendose hacia la derecha */}
         <motion.div
-          className="font-title flex whitespace-nowrap text-[3rem] leading-none font-black tracking-tight sm:text-[9vw] md:text-[8vw] lg:text-[7vw]"
-          style={{ x: shouldReduceMotion ? "-10%" : marqueeX2 }}
+          className={`font-title flex whitespace-nowrap text-[3rem] leading-none font-black tracking-tight sm:text-[9vw] md:text-[8vw] lg:text-[7vw] ${
+            isMobile && !shouldReduceMotion ? "animate-marquee-right" : ""
+          }`}
+          style={isMobile ? undefined : { x: shouldReduceMotion ? "-10%" : marqueeX2 }}
         >
-          {Array.from({ length: 6 }).map((_, i) => (
+          {Array.from({ length: 10 }).map((_, i) => (
             <div key={`row2-${i}`} className="flex items-center">
               <span className="font-subtitle mx-3 font-light italic text-accent uppercase sm:mx-6">
                 con ideas reales
