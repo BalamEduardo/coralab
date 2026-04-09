@@ -9,11 +9,7 @@ export function ContactSection() {
       className="relative z-20 flex w-full  flex-col items-center justify-center overflow-hidden rounded-t-[3rem] rounded-b-[3rem] border-t border-foreground/5 bg-surface pt-32 pb-20 text-center md:rounded-t-[5rem] md:rounded-b-[5rem] md:pt-60 md:pb-40"
     >
       <div className="absolute top-1/2 left-0  z-0 flex w-full -translate-y-1/2 whitespace-nowrap opacity-[0.05] pointer-events-none overflow-hidden">
-        <motion.div
-          animate={{ x: ["0%", "-60%"] }}
-          transition={{ repeat: Infinity, ease: "linear", duration: 30 }}
-          className="flex items-center"
-        >
+        <div className="flex items-center marquee-animate">
           <span className="font-title font-black text-[25vw] leading-none tracking-tighter uppercase md:text-[20vw]">
             LET&apos;S WORK &middot; HABLEMOS &middot; LET&apos;S WORK
             &middot;&nbsp;
@@ -22,7 +18,7 @@ export function ContactSection() {
             LET&apos;S WORK &middot; HABLEMOS &middot; LET&apos;S WORK
             &middot;&nbsp;
           </span>
-        </motion.div>
+        </div>
       </div>
 
       <div className="relative z-10 mx-auto flex max-w-7xl flex-col items-center px-6">

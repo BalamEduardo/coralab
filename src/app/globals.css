@@ -85,3 +85,46 @@ a {
   letter-spacing: 0.2em;
   text-transform: uppercase;
 }
+
+/* ─── ContactSection: infinite marquee ───────────────────────────── */
+@keyframes marquee-scroll {
+  from { transform: translateX(0%); }
+  to   { transform: translateX(-60%); }
+}
+
+.marquee-animate {
+  animation: marquee-scroll 30s linear infinite;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-animate {
+    animation: none;
+  }
+}
+
+/* ─── StoryMarquee: scroll-driven parallax (mobile only) ─────────── */
+@keyframes story-row1-scroll {
+  from { transform: translateX(41%); }
+  to   { transform: translateX(15%); }
+}
+
+@keyframes story-row2-scroll {
+  from { transform: translateX(-18%); }
+  to   { transform: translateX(5%); }
+}
+
+@supports (animation-timeline: view()) {
+  @media (pointer: coarse) and (prefers-reduced-motion: no-preference) {
+    .story-marquee-row1 {
+      animation: story-row1-scroll linear both;
+      animation-timeline: view(block);
+      animation-range: cover 0% cover 100%;
+    }
+    .story-marquee-row2 {
+      animation: story-row2-scroll linear both;
+      animation-timeline: view(block);
+      animation-range: cover 0% cover 100%;
+    }
+  }
+}
