@@ -99,7 +99,7 @@ function HeroTitleLine({
           </span>
         ))}
       </motion.span>
-    </span>
+    </motion.span>
   );
 }
 
