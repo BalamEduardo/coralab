@@ -58,25 +58,14 @@ function HeroTitleLine({
       }
     >
       <motion.span
-        className={`flex whitespace-nowrap ${isMobile ? "animate-[hero-fade-up_0.8s_cubic-bezier(0.16,1,0.3,1)_both]" : ""}`}
-        style={isMobile ? { animationDelay: `${index * 0.15}s` } : undefined}
-        initial={
-          isMobile
-            ? false
-            : shouldReduceMotion
-              ? { opacity: 1 }
-              : { opacity: 0, y: 40 }
-        }
-        animate={isMobile ? undefined : { opacity: 1, y: 0 }}
-        transition={
-          isMobile
-            ? undefined
-            : {
-                duration: shouldReduceMotion ? 0.35 : 1.2,
-                ease: EASE,
-                delay: shouldReduceMotion ? 0 : index * 0.4,
-              }
-        }
+        className="flex whitespace-nowrap"
+        initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{
+          duration: shouldReduceMotion ? 0.35 : 1,
+          ease: EASE,
+          delay: shouldReduceMotion ? 0 : index * 0.25,
+        }}
       >
         {lineSegments.map((segment, segIndex) => (
           <span
@@ -142,16 +131,12 @@ export function Hero() {
 
       <motion.div
         className="hero-parallax-text relative z-10 flex w-full flex-col items-center"
-        initial={shouldReduceMotion || isMobile ? false : { opacity: 0 }}
-        animate={isMobile ? undefined : { opacity: 1 }}
-        transition={
-          isMobile
-            ? undefined
-            : {
-                duration: shouldReduceMotion ? 0.01 : 0.85,
-                ease: EASE,
-              }
-        }
+        initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{
+          duration: shouldReduceMotion ? 0.01 : 0.85,
+          ease: EASE,
+        }}
       >
         <motion.h1
           className="font-title w-full max-w-6xl text-[clamp(1.75rem,7.5vw,3.75rem)] leading-[0.9] tracking-[-0.015em] text-foreground sm:text-[clamp(4.6rem,10vw,7rem)] sm:leading-[0.86] sm:tracking-[-0.04em] lg:text-[clamp(5.2rem,6vw,7.4rem)] lg:tracking-[-0.05em]"
