@@ -1,11 +1,24 @@
 "use client";
 
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 
 export function StoryMarquee() {
   const sectionRef = useRef<HTMLDivElement | null>(null);
   const shouldReduceMotion = Boolean(useReducedMotion());
+
+  const [isCoarsePointer, setIsCoarsePointer] = useState(false);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const coarseMedia = window.matchMedia("(pointer: coarse)");
+    const update = () => setIsCoarsePointer(coarseMedia.matches);
+    update();
+    coarseMedia.addEventListener("change", update);
+    return () => coarseMedia.removeEventListener("change", update);
+  }, []);
+
+  const disableScrollParallax = shouldReduceMotion || isCoarsePointer;
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -24,8 +37,8 @@ export function StoryMarquee() {
       <div className="flex w-max flex-col gap-4 md:gap-6 lg:gap-8">
         {/* Primera linea: moviendose hacia la izquierda */}
         <motion.div
-          className="font-title flex whitespace-nowrap text-[3rem] leading-none font-black tracking-tight sm:text-[9vw] md:text-[8vw] lg:text-[7vw]"
-          style={{ x: shouldReduceMotion ? "0%" : marqueeX1 }}
+          className="font-title flex whitespace-nowrap text-[3rem] leading-none font-black tracking-tight sm:text-[9vw] md:text-[8vw] lg:text-[7vw] story-marquee-row1"
+          style={disableScrollParallax ? undefined : { x: marqueeX1 }}
         >
           {Array.from({ length: 6 }).map((_, i) => (
             <div key={`row1-${i}`} className="flex items-center">
@@ -53,8 +66,8 @@ export function StoryMarquee() {
 
         {/* Segunda linea: moviendose hacia la derecha */}
         <motion.div
-          className="font-title flex whitespace-nowrap text-[3rem] leading-none font-black tracking-tight sm:text-[9vw] md:text-[8vw] lg:text-[7vw]"
-          style={{ x: shouldReduceMotion ? "-10%" : marqueeX2 }}
+          className="font-title flex whitespace-nowrap text-[3rem] leading-none font-black tracking-tight sm:text-[9vw] md:text-[8vw] lg:text-[7vw] story-marquee-row2"
+          style={disableScrollParallax ? undefined : { x: marqueeX2 }}
         >
           {Array.from({ length: 6 }).map((_, i) => (
             <div key={`row2-${i}`} className="flex items-center">
