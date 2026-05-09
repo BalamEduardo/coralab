@@ -78,7 +78,7 @@ export function Navbar({
         className="mx-auto grid min-h-[4.5rem] w-full grid-cols-[1fr_auto] items-center gap-5 px-4 sm:px-5 md:min-h-[5.5rem] md:grid-cols-[1fr_auto_1fr] lg:px-[76px]"
       >
         <Link
-          href="/"
+          href="/#inicio"
           aria-label="Ir al inicio"
           className="flex w-fit rounded-button focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background"
           onClick={closeMenu}

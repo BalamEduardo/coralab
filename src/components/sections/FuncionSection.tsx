@@ -71,13 +71,13 @@ export function FuncionSection() {
       <div className="relative z-10 mx-auto flex w-full max-w-[82rem] flex-col">
         <div className="grid gap-7 lg:grid-cols-[0.9fr_1fr] lg:gap-[2.5rem]">
           <div className="pt-0 lg:pt-[1.35rem]">
-            <FadeInUp delay={0.1}>
+            <FadeInUp delay={0.1} mobileDelay={0}>
               <p className="mb-[1rem] text-[10px] font-semibold uppercase leading-none tracking-[0.4em] text-accent">
                 CLARIDAD + FUNCI&Oacute;N
               </p>
             </FadeInUp>
 
-            <FadeInUp delay={0.2}>
+            <FadeInUp delay={0.2} mobileDelay={0.04}>
               <h2 className="max-w-[33rem] text-[30px] font-normal leading-[1.03] text-foreground sm:text-[40px] md:text-[48px] lg:text-[48px] xl:text-[50px]">
                 <span className="block">Lo digital debe</span>
                 <span className="block">comunicar y</span>
@@ -87,7 +87,7 @@ export function FuncionSection() {
               </h2>
             </FadeInUp>
 
-            <FadeInUp delay={0.3}>
+            <FadeInUp delay={0.3} mobileDelay={0.08}>
               <p className="mt-[1.25rem] max-w-[30rem] text-[16px] font-normal leading-[1.52] text-foreground md:text-[18px] lg:mt-[1.45rem]">
                 Coralab trabaja con marcas y negocios que necesitan ordenar su
                 presencia digital, actualizar herramientas y crear experiencias
@@ -97,7 +97,7 @@ export function FuncionSection() {
           </div>
 
           <div className="grid gap-4 lg:gap-[1.05rem]">
-            <StaggeredGrid className="grid gap-4 sm:grid-cols-2 lg:gap-[1.05rem]" staggerDelay={0.15}>
+            <StaggeredGrid className="grid gap-4 sm:grid-cols-2 lg:gap-[1.05rem]" staggerDelay={0.15} mobileStaggerDelay={0.05}>
               {frictionCards.map(({ description, Icon, id, title }) => (
                 <article
                   key={id}
@@ -118,7 +118,7 @@ export function FuncionSection() {
               ))}
             </StaggeredGrid>
 
-            <FadeInUp delay={0.5}>
+            <FadeInUp delay={0.5} mobileDelay={0.1}>
               <div className="flex min-h-[4.7rem] items-center gap-[1.1rem] rounded-[0.45rem] border border-border bg-background/35 px-[1.1rem] py-3 md:px-[1.55rem]">
                 <span className="flex h-[2.5rem] w-[2.5rem] shrink-0 items-center justify-center rounded-full bg-border/60">
                   <Image
@@ -137,7 +137,7 @@ export function FuncionSection() {
           </div>
         </div>
 
-        <FadeInUp delay={0.4}>
+        <FadeInUp delay={0.4} mobileDelay={0.1}>
           <div className="mt-7 border-t border-border pt-6 lg:mt-[2.4rem] lg:pt-[1.45rem]">
             <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:gap-[1.8rem]">
               <Link

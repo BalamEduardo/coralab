@@ -9,6 +9,7 @@ import { useInView } from "@/hooks/useInView";
 interface StaggeredGridProps {
   children: ReactNode;
   staggerDelay?: number;
+  mobileStaggerDelay?: number;
   direction?: "up" | "down" | "left" | "right";
   className?: string;
   triggerOnce?: boolean;
@@ -17,6 +18,7 @@ interface StaggeredGridProps {
 export function StaggeredGrid({
   children,
   staggerDelay = 0.1,
+  mobileStaggerDelay = 0.06,
   direction = "up",
   className,
   triggerOnce = true,
@@ -75,12 +77,12 @@ export function StaggeredGrid({
   return (
     <div ref={ref} className={className}>
       {Children.map(children, (child, index) => {
-        const delay = index * staggerDelay;
+        const delay = index * mobileStaggerDelay;
         const initialTransform = {
-          up: "translateY(20px)",
-          down: "translateY(-20px)",
-          left: "translateX(20px)",
-          right: "translateX(-20px)",
+          up: "translateY(12px)",
+          down: "translateY(-12px)",
+          left: "translateX(12px)",
+          right: "translateX(-12px)",
         }[direction];
         
         return (
@@ -89,7 +91,7 @@ export function StaggeredGrid({
               opacity: shouldAnimate && !isInView ? 0 : 1,
               transform: shouldAnimate && !isInView ? initialTransform : "translate(0)",
               transition: shouldAnimate
-                ? `opacity 0.5s ease-out ${delay}s, transform 0.5s ease-out ${delay}s`
+                ? `opacity 0.38s ease-out ${delay}s, transform 0.38s ease-out ${delay}s`
                 : "none",
               willChange: shouldAnimate ? "opacity, transform" : "auto",
             }}

@@ -10,8 +10,11 @@ import { cn } from "@/lib/utils";
 interface FadeInUpProps {
   children: ReactNode;
   delay?: number;
+  mobileDelay?: number;
   duration?: number;
+  mobileDuration?: number;
   distance?: number;
+  mobileDistance?: number;
   className?: string;
   triggerOnce?: boolean;
 }
@@ -19,8 +22,11 @@ interface FadeInUpProps {
 export function FadeInUp({
   children,
   delay = 0,
+  mobileDelay,
   duration = 0.5,
+  mobileDuration = 0.38,
   distance = 20,
+  mobileDistance = 12,
   className,
   triggerOnce = true,
 }: FadeInUpProps) {
@@ -29,6 +35,7 @@ export function FadeInUp({
   const { ref, isInView } = useInView({ triggerOnce, rootMargin: "-50px" });
 
   const shouldAnimate = !prefersReducedMotion;
+  const cssDelay = mobileDelay ?? Math.min(delay, 0.16);
   
   if (isDesktop && shouldAnimate) {
     return (
@@ -51,12 +58,11 @@ export function FadeInUp({
       className={cn(className)}
       style={{
         opacity: shouldAnimate && !isInView ? 0 : 1,
-        // Using string interpolation for values to handle dynamic distance safely
-        transform: shouldAnimate && !isInView ? `translateY(${distance}px)` : "translateY(0)",
+        transform: shouldAnimate && !isInView ? `translateY(${mobileDistance}px)` : "translateY(0)",
         transition: shouldAnimate 
-          ? `opacity ${duration}s ease-out ${delay}s, transform ${duration}s ease-out ${delay}s` 
+          ? `opacity ${mobileDuration}s ease-out ${cssDelay}s, transform ${mobileDuration}s ease-out ${cssDelay}s` 
           : "none",
-        willChange: shouldAnimate ? 'opacity, transform' : 'auto',
+        willChange: shouldAnimate ? "opacity, transform" : "auto",
       }}
     >
       {children}
