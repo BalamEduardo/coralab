@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { ArrowRight, Infinity } from "lucide-react";
-import type { ReactNode } from "react";
+import { memo, type ReactNode } from "react";
 import { FadeInUp } from "@/components/animations/FadeInUp";
 import { StaggeredGrid } from "@/components/animations/StaggeredGrid";
 
@@ -108,7 +108,7 @@ function ServiceMediaSlot({
   );
 }
 
-function ServiceCard({ service }: { service: Service }) {
+const ServiceCard = memo(function ServiceCard({ service }: { service: Service }) {
   return (
     <article className="flex min-h-[18rem] flex-col overflow-hidden rounded-[0.45rem] border border-border bg-background/35 p-[1.2rem] transition-colors duration-200 hover:border-accent/45 sm:p-[1.35rem] lg:min-h-[19.4rem] xl:min-h-[20.2rem] xl:p-[1.55rem]">
       <Infinity
@@ -129,7 +129,7 @@ function ServiceCard({ service }: { service: Service }) {
       />
     </article>
   );
-}
+});
 
 export function ServicesSection() {
   return (

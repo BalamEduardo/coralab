@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 interface UseInViewOptions extends IntersectionObserverInit {
   triggerOnce?: boolean;
@@ -8,29 +8,41 @@ interface UseInViewOptions extends IntersectionObserverInit {
 
 export function useInView<T extends Element = HTMLDivElement>(options: UseInViewOptions = {}) {
   const { root, rootMargin, threshold, triggerOnce = true } = options;
-  const [ref, setRef] = useState<T | null>(null);
+  const observerRef = useRef<IntersectionObserver | null>(null);
   const [isInView, setIsInView] = useState(false);
 
-  useEffect(() => {
-    if (!ref) return;
+  const disconnectObserver = useCallback(() => {
+    observerRef.current?.disconnect();
+    observerRef.current = null;
+  }, []);
 
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsInView(true);
-          if (triggerOnce) {
-            observer.disconnect();
+  const setRef = useCallback(
+    (node: T | null) => {
+      disconnectObserver();
+
+      if (!node) return;
+
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            setIsInView(true);
+            if (triggerOnce) {
+              disconnectObserver();
+            }
+          } else if (!triggerOnce) {
+            setIsInView(false);
           }
-        } else if (!triggerOnce) {
-          setIsInView(false);
-        }
-      },
-      { root, rootMargin, threshold }
-    );
+        },
+        { root, rootMargin, threshold }
+      );
 
-    observer.observe(ref);
-    return () => observer.disconnect();
-  }, [ref, root, rootMargin, threshold, triggerOnce]);
+      observer.observe(node);
+      observerRef.current = observer;
+    },
+    [disconnectObserver, root, rootMargin, threshold, triggerOnce]
+  );
+
+  useEffect(() => disconnectObserver, [disconnectObserver]);
 
   return { ref: setRef, isInView };
 }
