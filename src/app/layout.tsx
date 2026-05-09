@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { sans } from "@/lib/fonts";
+import { LenisProvider } from "@/components/LenisProvider";
 import "./globals.css";
 
 const SITE_URL = "https://coralab.dev";
@@ -126,7 +127,7 @@ export default function RootLayout({
             __html: JSON.stringify(structuredData).replace(/</g, "\\u003c"),
           }}
         />
-        {children}
+        <LenisProvider>{children}</LenisProvider>
       </body>
     </html>
   );

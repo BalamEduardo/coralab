@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { ArrowRight, Infinity } from "lucide-react";
 import type { ReactNode } from "react";
+import { FadeInUp } from "@/components/animations/FadeInUp";
+import { StaggeredGrid } from "@/components/animations/StaggeredGrid";
 
 type Service = {
   description: string;
@@ -149,41 +151,49 @@ export function ServicesSection() {
 
       <div className="relative z-10 mx-auto grid w-full max-w-[82rem] gap-7 lg:grid-cols-[0.92fr_1.65fr] lg:gap-[2.6rem]">
         <div className="pt-0 lg:sticky lg:top-[5.5rem] lg:h-fit lg:pt-[1.45rem]">
-          <p className="mb-[1rem] text-[10px] font-semibold uppercase leading-none tracking-[0.4em] text-accent">
-            SERVICIOS
-          </p>
+          <FadeInUp delay={0.1}>
+            <p className="mb-[1rem] text-[10px] font-semibold uppercase leading-none tracking-[0.4em] text-accent">
+              SERVICIOS
+            </p>
+          </FadeInUp>
 
-          <h2 className="max-w-[33rem] text-[30px] font-normal leading-[1.03] text-foreground sm:text-[40px] md:text-[48px] lg:text-[48px] xl:text-[50px]">
-            <span className="block">Dise&ntilde;o digital</span>
-            <span className="block">con estructura</span>
-            <span className="block">
-              y precisi&oacute;n<span className="text-accent">.</span>
-            </span>
-          </h2>
+          <FadeInUp delay={0.2}>
+            <h2 className="max-w-[33rem] text-[30px] font-normal leading-[1.03] text-foreground sm:text-[40px] md:text-[48px] lg:text-[48px] xl:text-[50px]">
+              <span className="block">Dise&ntilde;o digital</span>
+              <span className="block">con estructura</span>
+              <span className="block">
+                y precisi&oacute;n<span className="text-accent">.</span>
+              </span>
+            </h2>
+          </FadeInUp>
 
-          <p className="mt-[1.15rem] max-w-[30rem] text-[16px] font-normal leading-[1.5] text-foreground md:text-[17px] lg:mt-[1.35rem]">
-            Creamos entornos digitales pensados para comunicar mejor, funcionar
-            mejor y crecer con m&aacute;s claridad.
-          </p>
+          <FadeInUp delay={0.3}>
+            <p className="mt-[1.15rem] max-w-[30rem] text-[16px] font-normal leading-[1.5] text-foreground md:text-[17px] lg:mt-[1.35rem]">
+              Creamos entornos digitales pensados para comunicar mejor, funcionar
+              mejor y crecer con m&aacute;s claridad.
+            </p>
+          </FadeInUp>
 
-          <Link
-            href="/#contacto"
-            className="group mt-[1.65rem] inline-flex w-fit items-center justify-center gap-[0.75rem] rounded-button py-2 text-[15px] font-medium leading-none text-accent transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background md:mt-[1.9rem] md:text-[16px]"
-          >
-            Ver servicios
-            <ArrowRight
-              aria-hidden="true"
-              className="h-4.5 w-4.5 transition-transform duration-200 group-hover:translate-x-1"
-              strokeWidth={1.6}
-            />
-          </Link>
+          <FadeInUp delay={0.4}>
+            <Link
+              href="/#contacto"
+              className="group mt-[1.65rem] inline-flex w-fit items-center justify-center gap-[0.75rem] rounded-button py-2 text-[15px] font-medium leading-none text-accent transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background md:mt-[1.9rem] md:text-[16px]"
+            >
+              Ver servicios
+              <ArrowRight
+                aria-hidden="true"
+                className="h-4.5 w-4.5 transition-transform duration-200 group-hover:translate-x-1"
+                strokeWidth={1.6}
+              />
+            </Link>
+          </FadeInUp>
         </div>
 
-        <div className="grid gap-4 sm:grid-cols-2 lg:gap-[1.05rem]">
+        <StaggeredGrid className="grid gap-4 sm:grid-cols-2 lg:gap-[1.05rem]" staggerDelay={0.15}>
           {services.map((service) => (
             <ServiceCard key={service.id} service={service} />
           ))}
-        </div>
+        </StaggeredGrid>
       </div>
     </section>
   );

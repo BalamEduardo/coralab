@@ -9,6 +9,7 @@ import {
   Settings,
 } from "lucide-react";
 import type { ReactNode } from "react";
+import { FadeInUp } from "@/components/animations/FadeInUp";
 
 import { ContactEmailForm } from "./ContactEmailForm";
 
@@ -179,31 +180,43 @@ export function ContactSection() {
 
         <div className="relative z-10 grid gap-10 lg:grid-cols-[0.9fr_1fr] lg:items-center lg:gap-[4.2rem]">
           <div>
-            <p className="mb-[1rem] text-[10px] font-semibold uppercase leading-none tracking-[0.4em] text-accent">
-              {contact.eyebrow}
-            </p>
+            <FadeInUp delay={0.1}>
+              <p className="mb-[1rem] text-[10px] font-semibold uppercase leading-none tracking-[0.4em] text-accent">
+                {contact.eyebrow}
+              </p>
+            </FadeInUp>
 
-            <h2 className="max-w-[39rem] text-[30px] font-normal leading-[1.04] text-foreground sm:text-[40px] md:text-[48px] lg:text-[48px] xl:text-[50px]">
-              {contact.heading}
-            </h2>
+            <FadeInUp delay={0.2}>
+              <h2 className="max-w-[39rem] text-[30px] font-normal leading-[1.04] text-foreground sm:text-[40px] md:text-[48px] lg:text-[48px] xl:text-[50px]">
+                {contact.heading}
+              </h2>
+            </FadeInUp>
 
-            <p className="mt-[1.35rem] max-w-[39rem] text-[16px] font-normal leading-[1.5] text-foreground md:text-[18px]">
-              {contact.text}
-            </p>
+            <FadeInUp delay={0.3}>
+              <p className="mt-[1.35rem] max-w-[39rem] text-[16px] font-normal leading-[1.5] text-foreground md:text-[18px]">
+                {contact.text}
+              </p>
+            </FadeInUp>
 
-            <ContactEmailForm email={contact.email} />
+            <FadeInUp delay={0.4}>
+              <ContactEmailForm email={contact.email} />
+            </FadeInUp>
 
-            <a
-              href={`mailto:${contact.email}`}
-              className="mt-[1.55rem] inline-flex w-fit items-center justify-center gap-[0.85rem] rounded-button py-2 text-[15px] font-medium leading-none text-foreground transition-colors hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background md:text-[16px]"
-            >
-              Escribir a Coralab
-              <ArrowRight aria-hidden="true" className="h-4.5 w-4.5 text-accent" strokeWidth={1.6} />
-            </a>
+            <FadeInUp delay={0.5}>
+              <a
+                href={`mailto:${contact.email}`}
+                className="group mt-[1.55rem] inline-flex w-fit items-center justify-center gap-[0.85rem] rounded-button py-2 text-[15px] font-medium leading-none text-foreground transition-all hover:text-accent flex-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background md:text-[16px]"
+              >
+                Escribir a Coralab
+                <ArrowRight aria-hidden="true" className="h-4.5 w-4.5 transition-transform group-hover:translate-x-1" strokeWidth={1.6} />
+              </a>
+            </FadeInUp>
           </div>
 
           <div className="relative hidden md:block">
-            <ContactDashboardPreview />
+            <FadeInUp delay={0.3}>
+              <ContactDashboardPreview />
+            </FadeInUp>
           </div>
         </div>
 

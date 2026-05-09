@@ -2,6 +2,8 @@ import Link from "next/link";
 import { ArrowRight, Code2, ListChecks, PanelsTopLeft, Search } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import type { ReactNode } from "react";
+import { FadeInUp } from "@/components/animations/FadeInUp";
+import { StaggeredGrid } from "@/components/animations/StaggeredGrid";
 
 type ProcessStep = {
   description: ReactNode;
@@ -76,19 +78,25 @@ export function ProcesoSection() {
     >
       <div className="relative z-10 mx-auto w-full max-w-[82rem]">
         <div className="max-w-[56rem]">
-          <p className="mb-[1rem] text-[10px] font-semibold uppercase leading-none tracking-[0.4em] text-accent">
-            PROCESO
-          </p>
+          <FadeInUp delay={0.1}>
+            <p className="mb-[1rem] text-[10px] font-semibold uppercase leading-none tracking-[0.4em] text-accent">
+              PROCESO
+            </p>
+          </FadeInUp>
 
-          <h2 className="text-[30px] font-normal leading-[1.03] text-foreground sm:text-[40px] md:text-[48px] lg:text-[48px] xl:text-[50px]">
-            De la estrategia a la experiencia
-            <span className="text-accent">.</span>
-          </h2>
+          <FadeInUp delay={0.2}>
+            <h2 className="text-[30px] font-normal leading-[1.03] text-foreground sm:text-[40px] md:text-[48px] lg:text-[48px] xl:text-[50px]">
+              De la estrategia a la experiencia
+              <span className="text-accent">.</span>
+            </h2>
+          </FadeInUp>
 
-          <p className="mt-[1.15rem] max-w-[34rem] text-[16px] font-normal leading-[1.5] text-foreground md:text-[18px]">
-            Un proceso claro para entender, definir, dise&ntilde;ar y aterrizar
-            soluciones digitales &uacute;tiles.
-          </p>
+          <FadeInUp delay={0.3}>
+            <p className="mt-[1.15rem] max-w-[34rem] text-[16px] font-normal leading-[1.5] text-foreground md:text-[18px]">
+              Un proceso claro para entender, definir, dise&ntilde;ar y aterrizar
+              soluciones digitales &uacute;tiles.
+            </p>
+          </FadeInUp>
         </div>
 
         <div className="relative mt-[3.4rem] lg:mt-[4rem]">
@@ -107,24 +115,26 @@ export function ProcesoSection() {
             <circle cx="1318" cy="72" r="5" fill="currentColor" />
           </svg>
 
-          <div className="relative grid gap-7 md:grid-cols-2 md:gap-x-7 md:gap-y-10 lg:grid-cols-4 lg:gap-x-7">
+          <StaggeredGrid className="relative grid gap-7 md:grid-cols-2 md:gap-x-7 md:gap-y-10 lg:grid-cols-4 lg:gap-x-7" staggerDelay={0.15}>
             {processSteps.map((step) => (
               <ProcessStepCard key={step.id} step={step} />
             ))}
-          </div>
+          </StaggeredGrid>
         </div>
 
-        <Link
-          href="/#contacto"
-          className="group mt-[2.8rem] inline-flex w-fit items-center justify-center gap-[0.75rem] rounded-button py-2 text-[15px] font-medium leading-none text-foreground transition-colors hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background md:mt-[3.2rem] md:text-[16px]"
-        >
-          Ver proceso
-          <ArrowRight
-            aria-hidden="true"
-            className="h-4.5 w-4.5 text-accent transition-transform duration-200 group-hover:translate-x-1"
-            strokeWidth={1.6}
-          />
-        </Link>
+        <FadeInUp delay={0.4}>
+          <Link
+            href="/#contacto"
+            className="group mt-[2.8rem] inline-flex w-fit items-center justify-center gap-[0.75rem] rounded-button py-2 text-[15px] font-medium leading-none text-foreground transition-colors hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background md:mt-[3.2rem] md:text-[16px]"
+          >
+            Ver proceso
+            <ArrowRight
+              aria-hidden="true"
+              className="h-4.5 w-4.5 text-accent transition-transform duration-200 group-hover:translate-x-1"
+              strokeWidth={1.6}
+            />
+          </Link>
+        </FadeInUp>
       </div>
     </section>
   );
