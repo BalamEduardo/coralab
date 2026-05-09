@@ -88,6 +88,7 @@ export function Navbar({
             alt={logo.alt}
             width={logo.width}
             height={logo.height}
+            loading="eager"
             priority
             className="h-auto w-[132px] md:w-[150px]"
           />
