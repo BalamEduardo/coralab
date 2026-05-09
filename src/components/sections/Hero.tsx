@@ -6,7 +6,7 @@ export function Hero() {
   return (
     <section
       id="inicio"
-      className="relative isolate flex min-h-[calc(100svh-4.5rem)] w-full overflow-hidden bg-background md:min-h-[calc(100svh-5.5rem)]"
+      className="relative isolate flex w-full overflow-hidden bg-background md:min-h-[calc(100svh-5.5rem)]"
     >
       <svg
         aria-hidden="true"
@@ -21,7 +21,7 @@ export function Hero() {
         <path d="M772 286C810 267 840 273 860 300" stroke="currentColor" strokeWidth="1" />
       </svg>
 
-      <div className="relative z-10 flex flex-1 px-5 pb-[4.75rem] pt-[3.25rem] sm:px-8 md:px-[4.75rem] md:pb-[4.5rem] md:pt-[3.2rem]">
+      <div className="relative z-10 flex flex-1 flex-col px-5 pb-0 pt-[3.25rem] sm:px-8 md:px-[4.75rem] md:pb-[4.5rem] md:pt-[3.2rem]">
         <div className="relative z-20 mt-[0.8rem] w-full max-w-[34rem] md:mt-[1.35rem] lg:mt-[1.65rem]">
           <p className="mb-[1.15rem] text-[10px] font-semibold uppercase leading-none tracking-[0.4em] text-accent">
             ESTUDIO DIGITAL
@@ -67,7 +67,7 @@ export function Hero() {
               height={686}
               className="h-auto w-[2rem] shrink-0"
             />
-            <p className="text-[14px] font-normal leading-tight text-foreground md:text-[15px]">
+            <p className="min-w-0 text-[14px] font-normal leading-tight text-foreground md:text-[15px]">
               Web &middot; Producto digital &middot; UX/UI &middot; Sistemas de dise&ntilde;o
             </p>
           </div>
@@ -79,8 +79,8 @@ export function Hero() {
           width={1448}
           height={1086}
           priority
-          sizes="(min-width: 1280px) 68vw, (min-width: 768px) 62vw, 100vw"
-          className="pointer-events-none absolute bottom-0 right-[-6.75rem] z-10 hidden h-auto w-[45rem] max-w-none object-contain md:block lg:right-[-5.2rem] lg:w-[49rem] xl:right-[-3.5rem] xl:w-[51rem] 2xl:right-[-1rem] 2xl:w-[53rem]"
+          sizes="(min-width: 1280px) 68vw, (min-width: 768px) 62vw, 115vw"
+          className="pointer-events-none relative left-8 z-10 mt-7 h-auto max-h-[24rem] w-full max-w-[36rem] self-center object-contain object-bottom sm:left-10 md:absolute md:bottom-0 md:left-auto md:right-[-6.75rem] md:mt-0 md:block md:max-h-none md:w-[45rem] md:max-w-none lg:right-[-5.2rem] lg:w-[49rem] xl:right-[-3.5rem] xl:w-[51rem] 2xl:right-[-1rem] 2xl:w-[53rem]"
         />
       </div>
     </section>

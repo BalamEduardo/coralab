@@ -7,8 +7,9 @@ const SITE_URL = "https://coralab.dev";
 const SITE_NAME = "Coralab";
 const SITE_EMAIL = "hola@coralab.dev";
 const SITE_INSTAGRAM = "https://www.instagram.com/coralab.dev/";
+const SITE_TITLE = `${SITE_NAME} | Claridad digital para marcas`;
 const SITE_DESCRIPTION =
-  "Coralab es un espacio dedicado a crear sitios web y soluciones digitales sencillas para negocios que buscan una presencia profesional en internet, sin complicaciones ni promesas irreales.";
+  "Diseñamos webs, productos y sistemas digitales que comunican con precisión, mejoran la experiencia y ordenan la operación.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -29,7 +30,7 @@ export const metadata: Metadata = {
     ],
   },
   title: {
-    default: `${SITE_NAME} | Presencia digital sin complicaciones`,
+    default: SITE_TITLE,
     template: `%s | ${SITE_NAME}`,
   },
   description: SITE_DESCRIPTION,
@@ -67,24 +68,22 @@ export const metadata: Metadata = {
     locale: "es_MX",
     url: SITE_URL,
     siteName: SITE_NAME,
-    title: `${SITE_NAME} | Presencia digital sin complicaciones`,
-    description:
-      "Creamos sitios web y soluciones digitales claras, funcionales y enfocadas en negocios reales que buscan una presencia profesional en internet.",
+    title: SITE_TITLE,
+    description: SITE_DESCRIPTION,
     images: [
       {
-        url: "/opengraph-image",
+        url: "/opengraph-image?v=2",
         width: 1200,
         height: 630,
-        alt: "Coralab - Presencia digital sin complicaciones",
+        alt: "Coralab - Claridad digital para marcas",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: `${SITE_NAME} | Presencia digital sin complicaciones`,
-    description:
-      "Sitios web y soluciones digitales claras, funcionales y pensadas para negocios reales.",
-    images: ["/twitter-image"],
+    title: SITE_TITLE,
+    description: SITE_DESCRIPTION,
+    images: ["/twitter-image?v=2"],
   },
 };
 

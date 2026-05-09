@@ -25,7 +25,7 @@ const caseStudies: CaseStudy[] = [
     imageAlt: "Captura del sitio Momento en una interfaz web",
     imageClassName:
       "object-cover object-[51%_0%] opacity-100 scale-100",
-    imageSrc: "/momento-mu.png",
+    imageSrc: "/Project/momento-mu.webp",
     number: "01",
     tag: "Sistema",
     title: "Momento",
@@ -39,7 +39,7 @@ const caseStudies: CaseStudy[] = [
     imageAlt: "Captura del sitio Apex con una experiencia web inmersiva",
     imageClassName:
       "object-cover object-[74%_52%] opacity-100 scale-100",
-    imageSrc: "/apex-mu.png",
+    imageSrc: "/Project/apex-mu.webp",
     number: "02",
     tag: "Web",
     title: "Apex",
@@ -53,7 +53,7 @@ const caseStudies: CaseStudy[] = [
     imageAlt: "Captura del proyecto Lúmina con una interfaz de pilates",
     imageClassName:
       "object-cover object-[0%_54%] opacity-100 scale-100",
-    imageSrc: "/pilates-mu.png",
+    imageSrc: "/Project/pilates-mu.webp",
     number: "03",
     tag: "Pilates",
     title: "Lúmina",
