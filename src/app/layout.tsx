@@ -6,6 +6,7 @@ import "./globals.css";
 const SITE_URL = "https://coralab.dev";
 const SITE_NAME = "Coralab";
 const SITE_EMAIL = "hola@coralab.dev";
+const SITE_INSTAGRAM = "https://www.instagram.com/coralab.dev/";
 const SITE_DESCRIPTION =
   "Coralab es un espacio dedicado a crear sitios web y soluciones digitales sencillas para negocios que buscan una presencia profesional en internet, sin complicaciones ni promesas irreales.";
 
@@ -41,7 +42,7 @@ export const metadata: Metadata = {
     "sitios web para negocios",
     "soluciones digitales",
     "landing pages",
-    "web design mexico",
+    "web design México",
   ],
   authors: [{ name: SITE_NAME, url: SITE_URL }],
   creator: SITE_NAME,
@@ -94,13 +95,21 @@ const structuredData = [
     name: SITE_NAME,
     url: SITE_URL,
     email: SITE_EMAIL,
+    sameAs: [SITE_INSTAGRAM],
     description: SITE_DESCRIPTION,
+    contactPoint: {
+      "@type": "ContactPoint",
+      contactType: "customer support",
+      email: SITE_EMAIL,
+      availableLanguage: ["es"],
+    },
   },
   {
     "@context": "https://schema.org",
     "@type": "WebSite",
     name: SITE_NAME,
     url: SITE_URL,
+    inLanguage: "es-MX",
     description: SITE_DESCRIPTION,
   },
 ];

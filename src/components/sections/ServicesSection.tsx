@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { ArrowRight, Infinity } from "lucide-react";
 import type { ReactNode } from "react";
 
@@ -53,7 +54,7 @@ function ServiceMediaSlot({
   return (
     <div
       aria-label={imageAlt}
-      className="relative mt-[1.7rem] min-h-[11.9rem] overflow-hidden rounded-[0.38rem] border border-border bg-surface/70 sm:min-h-[13rem] lg:min-h-[12rem] xl:min-h-[13.8rem]"
+      className="relative mt-[1.05rem] min-h-[9rem] overflow-hidden rounded-[0.38rem] border border-border bg-surface/70 sm:min-h-[9.6rem] lg:min-h-[9.2rem] xl:min-h-[10.2rem]"
       data-expected-image={imagePath}
       role="img"
     >
@@ -81,22 +82,22 @@ function ServiceMediaSlot({
 
       {mediaTone === "mobile" ? (
         <>
-          <div className="absolute bottom-[-1.15rem] left-[17%] h-[11rem] w-[7.2rem] rounded-[1rem] border border-border bg-background/90" />
-          <div className="absolute bottom-[-0.8rem] right-[16%] h-[11rem] w-[7.2rem] rounded-[1rem] border border-border bg-background/90" />
+          <div className="absolute bottom-[-1.05rem] left-[18%] h-[8.4rem] w-[5.5rem] rounded-[0.85rem] border border-border bg-background/90" />
+          <div className="absolute bottom-[-0.7rem] right-[17%] h-[8.4rem] w-[5.5rem] rounded-[0.85rem] border border-border bg-background/90" />
         </>
       ) : null}
 
       {mediaTone === "system" ? (
         <>
           <div className="absolute left-[8%] top-[34%] h-[1.2rem] w-[44%] rounded-full bg-foreground/8" />
-          <div className="absolute left-[8%] top-[51%] flex gap-2">
-            <span className="h-7 w-7 rounded-[0.2rem] bg-accent" />
-            <span className="h-7 w-7 rounded-[0.2rem] bg-foreground" />
-            <span className="h-7 w-7 rounded-[0.2rem] bg-muted" />
-            <span className="h-7 w-7 rounded-[0.2rem] bg-border" />
+          <div className="absolute left-[8%] top-[51%] flex gap-1.5">
+            <span className="h-5 w-5 rounded-[0.2rem] bg-accent" />
+            <span className="h-5 w-5 rounded-[0.2rem] bg-foreground" />
+            <span className="h-5 w-5 rounded-[0.2rem] bg-muted" />
+            <span className="h-5 w-5 rounded-[0.2rem] bg-border" />
           </div>
-          <div className="absolute right-[9%] top-[38%] h-8 w-[29%] rounded-[0.22rem] bg-accent" />
-          <div className="absolute bottom-[18%] left-[8%] text-[2.1rem] leading-none text-foreground">
+          <div className="absolute right-[9%] top-[39%] h-6 w-[29%] rounded-[0.22rem] bg-accent" />
+          <div className="absolute bottom-[18%] left-[8%] text-[1.55rem] leading-none text-foreground">
             Ag
           </div>
         </>
@@ -107,16 +108,16 @@ function ServiceMediaSlot({
 
 function ServiceCard({ service }: { service: Service }) {
   return (
-    <article className="flex min-h-[23rem] flex-col overflow-hidden rounded-[0.45rem] border border-border bg-background/35 p-[1.55rem] transition-colors duration-200 hover:border-accent/45 sm:p-[1.85rem] lg:min-h-[25rem] xl:min-h-[26.1rem] xl:p-[2.15rem]">
+    <article className="flex min-h-[18rem] flex-col overflow-hidden rounded-[0.45rem] border border-border bg-background/35 p-[1.2rem] transition-colors duration-200 hover:border-accent/45 sm:p-[1.35rem] lg:min-h-[19.4rem] xl:min-h-[20.2rem] xl:p-[1.55rem]">
       <Infinity
         aria-hidden="true"
-        className="mb-[1.15rem] h-10 w-10 text-accent"
+        className="mb-[0.75rem] h-7 w-7 text-accent md:h-8 md:w-8"
         strokeWidth={1.9}
       />
-      <h3 className="text-[27px] font-normal leading-[1.08] text-foreground md:text-[30px]">
+      <h3 className="text-[21px] font-normal leading-[1.08] text-foreground md:text-[24px]">
         {service.title}
       </h3>
-      <p className="mt-[0.75rem] max-w-[18rem] text-[17px] leading-[1.42] text-foreground md:text-[18px]">
+      <p className="mt-[0.55rem] max-w-[15rem] text-[14px] leading-[1.42] text-foreground md:text-[15px]">
         {service.description}
       </p>
       <ServiceMediaSlot
@@ -132,7 +133,7 @@ export function ServicesSection() {
   return (
     <section
       id="servicios"
-      className="relative isolate w-full scroll-mt-20 overflow-hidden bg-background px-5 py-16 sm:px-8 md:scroll-mt-28 md:px-[4.75rem] lg:min-h-[calc(100svh-7rem)] lg:py-[4.1rem]"
+      className="relative isolate w-full scroll-mt-20 overflow-hidden bg-background px-5 py-12 sm:px-8 md:scroll-mt-[5.5rem] md:px-[4.75rem] lg:min-h-[calc(100svh-5.5rem)] lg:py-[3.2rem]"
     >
       <svg
         aria-hidden="true"
@@ -146,13 +147,13 @@ export function ServicesSection() {
         <path d="M0 558C144 408 263 302 358 240C494 150 612 135 710 195C774 234 817 289 840 358" stroke="currentColor" strokeWidth="1" />
       </svg>
 
-      <div className="relative z-10 mx-auto grid w-full max-w-[92rem] gap-10 lg:grid-cols-[0.92fr_1.65fr] lg:gap-[4.1rem]">
-        <div className="pt-0 lg:sticky lg:top-28 lg:h-fit lg:pt-[3.4rem]">
-          <p className="mb-[1.55rem] text-[12px] font-semibold uppercase leading-none tracking-[0.42em] text-accent">
+      <div className="relative z-10 mx-auto grid w-full max-w-[82rem] gap-7 lg:grid-cols-[0.92fr_1.65fr] lg:gap-[2.6rem]">
+        <div className="pt-0 lg:sticky lg:top-[5.5rem] lg:h-fit lg:pt-[1.45rem]">
+          <p className="mb-[1rem] text-[10px] font-semibold uppercase leading-none tracking-[0.4em] text-accent">
             SERVICIOS
           </p>
 
-          <h2 className="max-w-[41rem] text-[45px] font-normal leading-[1.03] text-foreground sm:text-[60px] md:text-[72px] lg:text-[73px] xl:text-[76px]">
+          <h2 className="max-w-[33rem] text-[34px] font-normal leading-[1.03] text-foreground sm:text-[46px] md:text-[54px] lg:text-[55px] xl:text-[56px]">
             <span className="block">Dise&ntilde;o digital</span>
             <span className="block">con estructura</span>
             <span className="block">
@@ -160,22 +161,22 @@ export function ServicesSection() {
             </span>
           </h2>
 
-          <p className="mt-[1.65rem] max-w-[36rem] text-[19px] font-normal leading-[1.5] text-foreground md:text-[22px] lg:mt-[2rem]">
+          <p className="mt-[1.15rem] max-w-[30rem] text-[16px] font-normal leading-[1.5] text-foreground md:text-[17px] lg:mt-[1.35rem]">
             Creamos entornos digitales pensados para comunicar mejor, funcionar
             mejor y crecer con m&aacute;s claridad.
           </p>
 
-          <a
-            href="#contacto"
-            className="group mt-[2.65rem] inline-flex w-fit items-center justify-center gap-[1.05rem] rounded-button py-2 text-[18px] font-medium leading-none text-accent transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background md:mt-[3rem] md:text-[19px]"
+          <Link
+            href="/#contacto"
+            className="group mt-[1.65rem] inline-flex w-fit items-center justify-center gap-[0.75rem] rounded-button py-2 text-[15px] font-medium leading-none text-accent transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background md:mt-[1.9rem] md:text-[16px]"
           >
             Ver servicios
             <ArrowRight
               aria-hidden="true"
-              className="h-6 w-6 transition-transform duration-200 group-hover:translate-x-1"
+              className="h-4.5 w-4.5 transition-transform duration-200 group-hover:translate-x-1"
               strokeWidth={1.6}
             />
-          </a>
+          </Link>
         </div>
 
         <div className="grid gap-4 sm:grid-cols-2 lg:gap-[1.05rem]">

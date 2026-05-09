@@ -9,20 +9,20 @@ import { cn } from "@/lib/utils";
 
 type NavItem = {
   label: string;
-  href: `#${string}`;
+  href: `/#${string}`;
 };
 
 interface NavbarProps {
   items?: NavItem[];
-  ctaHref?: `#${string}`;
+  ctaHref?: `/#${string}`;
   className?: string;
 }
 
 const defaultItems: NavItem[] = [
-  { label: "Servicios", href: "#servicios" },
-  { label: "Proceso", href: "#proceso" },
-  { label: "Casos", href: "#casos" },
-  { label: "Nosotros", href: "#funcion" },
+  { label: "Nosotros", href: "/#funcion" },
+  { label: "Servicios", href: "/#servicios" },
+  { label: "Proceso", href: "/#proceso" },
+  { label: "Casos", href: "/#casos" },
 ];
 
 const logo = {
@@ -34,7 +34,7 @@ const logo = {
 
 export function Navbar({
   items = defaultItems,
-  ctaHref = "#contacto",
+  ctaHref = "/#contacto",
   className,
 }: NavbarProps) {
   const [isOpen, setIsOpen] = useState(false);
@@ -75,7 +75,7 @@ export function Navbar({
     >
       <nav
         aria-label="Navegacion principal"
-        className="mx-auto grid min-h-20 w-full grid-cols-[1fr_auto] items-center gap-6 px-4 sm:px-5 md:min-h-28 md:grid-cols-[1fr_auto_1fr] lg:px-[88px]"
+        className="mx-auto grid min-h-[4.5rem] w-full grid-cols-[1fr_auto] items-center gap-5 px-4 sm:px-5 md:min-h-[5.5rem] md:grid-cols-[1fr_auto_1fr] lg:px-[76px]"
       >
         <Link
           href="/"
@@ -89,16 +89,16 @@ export function Navbar({
             width={logo.width}
             height={logo.height}
             priority
-            className="h-auto w-[142px] md:w-[168px]"
+            className="h-auto w-[132px] md:w-[150px]"
           />
         </Link>
 
-        <ul className="hidden items-center justify-center gap-12 md:flex lg:gap-16">
+        <ul className="hidden items-center justify-center gap-9 md:flex lg:gap-12">
           {items.map((item) => (
             <li key={item.href}>
               <Link
                 href={item.href}
-                className="rounded-button px-1 py-2 text-base font-medium leading-none text-foreground transition-colors hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                className="rounded-button px-1 py-2 text-[15px] font-medium leading-none text-foreground transition-colors hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background"
               >
                 {item.label}
               </Link>
@@ -109,12 +109,12 @@ export function Navbar({
         <div className="hidden justify-end md:flex">
           <Link
             href={ctaHref}
-            className="group inline-flex min-h-12 items-center justify-center gap-6 rounded-button bg-accent px-6 text-base font-semibold leading-none text-white transition-colors hover:bg-accent-light focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background lg:px-7"
+            className="group inline-flex min-h-11 items-center justify-center gap-4 rounded-button bg-accent px-5 text-[15px] font-semibold leading-none text-white transition-colors hover:bg-accent-light focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background lg:px-6"
           >
             Agendar diagn&oacute;stico
             <ArrowRight
               aria-hidden="true"
-              className="h-5 w-5 transition-transform group-hover:translate-x-1"
+              className="h-4.5 w-4.5 transition-transform group-hover:translate-x-1"
               strokeWidth={1.8}
             />
           </Link>
@@ -123,7 +123,7 @@ export function Navbar({
         <button
           type="button"
           onClick={toggleMenu}
-          className="flex h-11 w-11 items-center justify-center justify-self-end rounded-button border border-border bg-surface text-foreground transition-colors hover:border-accent hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background md:hidden"
+          className="flex h-10 w-10 items-center justify-center justify-self-end rounded-button border border-border bg-surface text-foreground transition-colors hover:border-accent hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background md:hidden"
           aria-controls={menuId}
           aria-expanded={isOpen}
           aria-label={isOpen ? "Cerrar menu" : "Abrir menu"}
@@ -135,18 +135,18 @@ export function Navbar({
       <div
         id={menuId}
         className={cn(
-          "grid border-t border-line-soft bg-background transition-[grid-template-rows] duration-200 md:hidden",
+          "absolute inset-x-0 top-full grid border-b border-t border-line-soft bg-background shadow-card transition-[grid-template-rows] duration-200 md:hidden",
           isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]",
         )}
       >
         <div className="overflow-hidden">
-          <div className="mx-auto flex w-full flex-col gap-2 px-3 py-5 sm:px-4 lg:px-4">
+          <div className="mx-auto flex w-full flex-col gap-1.5 px-3 py-4 sm:px-4 lg:px-4">
             {items.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
                 onClick={closeMenu}
-                className="rounded-button px-1 py-3 text-xl font-medium text-foreground transition-colors hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                className="rounded-button px-1 py-2.5 text-lg font-medium text-foreground transition-colors hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background"
               >
                 {item.label}
               </Link>
@@ -154,7 +154,7 @@ export function Navbar({
             <Link
               href={ctaHref}
               onClick={closeMenu}
-              className="mt-3 inline-flex min-h-12 items-center justify-center gap-4 rounded-button bg-accent px-5 text-base font-semibold text-white transition-colors hover:bg-accent-light focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+              className="mt-2 inline-flex min-h-11 items-center justify-center gap-3 rounded-button bg-accent px-5 text-[15px] font-semibold text-white transition-colors hover:bg-accent-light focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background"
             >
               Agendar diagn&oacute;stico
               <ArrowRight aria-hidden="true" className="h-5 w-5" strokeWidth={1.8} />
