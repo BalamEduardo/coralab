@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import { Arvo, Lora, Molengo } from "next/font/google";
 import { LenisProvider } from "@/components/LenisProvider";
+import { sans } from "@/lib/fonts";
 import "./globals.css";
 
 const SITE_URL = "https://coralab.dev";
@@ -8,28 +8,6 @@ const SITE_NAME = "Coralab";
 const SITE_EMAIL = "hola@coralab.dev";
 const SITE_DESCRIPTION =
   "Coralab es un espacio dedicado a crear sitios web y soluciones digitales sencillas para negocios que buscan una presencia profesional en internet, sin complicaciones ni promesas irreales.";
-
-const arvo = Arvo({
-  variable: "--font-arvo",
-  subsets: ["latin"],
-  weight: ["400", "700"],
-  style: ["normal", "italic"],
-  display: "swap",
-});
-
-const lora = Lora({
-  variable: "--font-lora",
-  subsets: ["latin"],
-  style: ["normal", "italic"],
-  display: "swap",
-});
-
-const molengo = Molengo({
-  variable: "--font-molengo",
-  subsets: ["latin"],
-  weight: "400",
-  display: "swap",
-});
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -133,11 +111,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="es"
-      className={`${arvo.variable} ${lora.variable} ${molengo.variable}`}
-    >
-      <body className="min-h-screen bg-background font-sans text-foreground antialiased selection:bg-accent/25">
+    <html lang="es" className={sans.variable}>
+      <body className="min-h-screen bg-background font-sans text-foreground antialiased selection:bg-accent/20 selection:text-foreground">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{

@@ -1,91 +1,35 @@
-"use client";
+import Image from "next/image";
+import Link from "next/link";
 
-import { motion } from "framer-motion";
+const logo = {
+  alt: "Coralab",
+  height: 186,
+  src: "/brand/logo-horizontal-dark.png",
+  width: 820,
+};
 
 export function Footer() {
   return (
-    <motion.footer
-      initial={{ opacity: 0, y: 150 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "100px" }}
-      transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-      className="relative z-10 mt-6 w-full overflow-hidden rounded-t-[3rem] bg-foreground px-6 pt-24 pb-8 text-background shadow-[0_-20px_40px_rgba(0,0,0,0.2)] md:mt-8 md:rounded-t-[5rem] md:px-12"
-    >
-      <div className="mx-auto max-w-7xl">
-        <div className="mb-16 grid grid-cols-1 gap-16 md:mb-24 md:grid-cols-12 md:gap-8">
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="md:col-span-6 flex flex-col items-start"
-          >
-            <h2 className="font-title mb-6 text-4xl font-bold leading-[0.9] tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
-              Potenciando
-              <br />
-              <span className="font-subtitle font-light italic text-accent">
-                tu presencia digital
-              </span>
-            </h2>
-            <p className="font-subtitle max-w-sm text-base font-light italic text-background/60 md:text-xl">
-              Coralab. Construyendo ideas que trascienden.
-            </p>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="grid grid-cols-1 gap-10 text-sm md:col-span-6 md:grid-cols-2 md:pt-4 md:text-base"
-          >
-            <div className="flex flex-col space-y-4">
-              <h4 className="font-subtitle mb-4 border-b border-background/10 pb-4 text-[10px] font-bold uppercase tracking-[0.3em] text-accent">
-                Social
-              </h4>
-              <a
-                href="https://www.facebook.com/profile.php?id=61576412897911"
-                target="_blank"
-                rel="noreferrer"
-                className="font-body transition-all duration-300 hover:text-accent hover:italic"
-              >
-                Facebook
-              </a>
-            </div>
-
-            <div className="flex flex-col space-y-4">
-              <h4 className="font-subtitle mb-4 border-b border-background/10 pb-4 text-[10px] font-bold uppercase tracking-[0.3em] text-accent">
-                Contacto
-              </h4>
-              <a
-                href="mailto:hola@coralab.dev"
-                className="font-body transition-colors duration-300 hover:text-accent"
-              >
-                hola@coralab.dev
-              </a>
-            </div>
-          </motion.div>
-        </div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 1, delay: 0.4 }}
-          className="mt-16 flex flex-col border-t border-background/10 pt-8 md:mt-24"
+    <footer className="w-full border-t border-line-soft bg-background">
+      <div className="mx-auto flex min-h-24 w-full flex-col items-center justify-between gap-6 px-3 py-8 sm:px-4 md:min-h-28 md:flex-row md:py-0 lg:px-4">
+        <Link
+          href="/"
+          aria-label="Ir al inicio"
+          className="mx-auto flex w-fit rounded-button focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background md:mx-0"
         >
-          <div className="font-body mb-16 flex flex-col items-center justify-between gap-4 text-center text-[10px] font-bold uppercase tracking-[0.4em] text-background/40 md:flex-row md:text-xs">
-            <p>{new Date().getFullYear()} CORALAB</p>
-            <p>HECHO EN VERACRUZ</p>
-          </div>
+          <Image
+            src={logo.src}
+            alt={logo.alt}
+            width={logo.width}
+            height={logo.height}
+            className="h-auto w-[142px] md:w-[168px]"
+          />
+        </Link>
 
-          <div className="flex w-full justify-center pb-4">
-            <span className="font-title block select-none text-[16vw] font-bold leading-[0.80] tracking-tighter text-background">
-              CORALAB
-            </span>
-          </div>
-        </motion.div>
+        <p className="text-center text-base font-medium text-muted md:text-right">
+          Coralab &mdash; Estudio digital
+        </p>
       </div>
-    </motion.footer>
+    </footer>
   );
 }

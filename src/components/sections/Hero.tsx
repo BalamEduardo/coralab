@@ -1,158 +1,88 @@
-"use client";
-
-import { useEffect, useRef, useState } from "react";
-import {
-  type MotionValue,
-  motion,
-  useReducedMotion,
-  useScroll,
-  useTransform,
-} from "framer-motion";
-
-const HERO_LINES = [
-  { start: "Transformamos", accent: "ideas", end: "en" },
-  { start: "soluciones", accent: "digitales", end: "" },
-  { start: "reales.", accent: "", end: "" },
-] as const;
-const HERO_SEGMENTS = HERO_LINES.map((line) => [
-  { text: line.start, accent: false },
-  ...(line.accent ? [{ text: line.accent, accent: true }] : []),
-  ...(line.end ? [{ text: line.end, accent: false }] : []),
-]);
-
-const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
-const NOISE_TEXTURE =
-  "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E\")";
-
-function HeroTitleLine({
-  index,
-  scrollYProgress,
-  isMobile,
-  disableScrollParallax,
-  shouldReduceMotion,
-}: {
-  index: number;
-  scrollYProgress: MotionValue<number>;
-  isMobile: boolean;
-  disableScrollParallax: boolean;
-  shouldReduceMotion: boolean;
-}) {
-  const lineSegments = HERO_SEGMENTS[index];
-
-  const exitStart = 0.05 + index * 0.15;
-  const exitEnd = exitStart + 0.35;
-
-  const lineOpacity = useTransform(scrollYProgress, [exitStart, exitEnd], [1, 0]);
-  const lineY = useTransform(scrollYProgress, [exitStart, exitEnd], [0, -48]);
-
-  return (
-    <motion.span
-      className="flex justify-center overflow-visible py-3 -my-3 sm:py-4 sm:-my-4"
-      style={
-        disableScrollParallax
-          ? undefined
-          : {
-              opacity: lineOpacity,
-              y: lineY,
-            }
-      }
-    >
-      <motion.span
-        className="flex whitespace-nowrap"
-        initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{
-          duration: shouldReduceMotion ? 0.35 : 1,
-          ease: EASE,
-          delay: shouldReduceMotion ? 0 : index * 0.25,
-        }}
-      >
-        {lineSegments.map((segment, segIndex) => (
-          <span
-            key={`${index}-${segIndex}`}
-            className={
-              segIndex === 0
-                ? "inline-flex items-baseline"
-                : "inline-flex items-baseline ml-[0.18em] sm:ml-[0.40em]"
-            }
-          >
-            <span
-              className={
-                segment.accent
-                  ? "font-subtitle inline-block font-light italic text-accent"
-                  : "inline-block"
-              }
-            >
-              {segment.text}
-            </span>
-          </span>
-        ))}
-      </motion.span>
-    </motion.span>
-  );
-}
+import Image from "next/image";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 
 export function Hero() {
-  const shouldReduceMotion = Boolean(useReducedMotion());
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-    
-    // Detect mobile using media query to match other components
-    const mobileMedia = window.matchMedia("(max-width: 767px)");
-    setIsMobile(mobileMedia.matches);
-    
-    const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches);
-    mobileMedia.addEventListener("change", handler);
-    return () => mobileMedia.removeEventListener("change", handler);
-  }, []);
-
-  // Standardize scroll parallax disabled state based on viewport width
-  const disableScrollParallax = shouldReduceMotion || isMobile;
-
-  const heroRef = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: heroRef,
-    offset: ["start start", "end 55%"],
-  });
-
   return (
     <section
       id="inicio"
-      ref={heroRef}
-      className="relative mx-auto flex min-h-svh w-full max-w-7xl items-center justify-center overflow-hidden px-4 pb-14 pt-24 text-center sm:pb-16 sm:pt-28"
+      className="relative isolate flex min-h-[calc(100svh-5rem)] w-full overflow-hidden bg-background md:min-h-[calc(100svh-7rem)]"
     >
-      <div
+      <svg
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 z-1 hidden opacity-[0.05] sm:block"
-        style={{ backgroundImage: NOISE_TEXTURE }}
-      />
-
-      <motion.div
-        className="hero-parallax-text relative z-10 flex w-full flex-col items-center"
-        initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{
-          duration: shouldReduceMotion ? 0.01 : 0.85,
-          ease: EASE,
-        }}
+        className="pointer-events-none absolute right-[-7.5rem] top-[-5rem] z-0 hidden h-[36rem] w-[54rem] text-border opacity-80 md:block"
+        viewBox="0 0 860 576"
+        fill="none"
       >
-        <motion.h1
-          className="font-title w-full max-w-6xl text-[clamp(1.75rem,7.5vw,3.75rem)] leading-[0.9] tracking-[-0.015em] text-foreground sm:text-[clamp(4.6rem,10vw,7rem)] sm:leading-[0.86] sm:tracking-[-0.04em] lg:text-[clamp(5.2rem,6vw,7.4rem)] lg:tracking-[-0.05em]"
-        >
-          {HERO_LINES.map((line, index) => (
-            <HeroTitleLine
-              key={`${line.start}-${line.end}-${line.accent}`}
-              index={index}
-              scrollYProgress={scrollYProgress}
-              isMobile={isMobile}
-              disableScrollParallax={disableScrollParallax}
-              shouldReduceMotion={shouldReduceMotion}
+        <circle cx="276" cy="194" r="180" stroke="currentColor" strokeWidth="1" />
+        <circle cx="276" cy="194" r="118" stroke="currentColor" strokeWidth="1" />
+        <path d="M0 576C170 383 346 232 528 128C648 60 754 20 860 0" stroke="currentColor" strokeWidth="1" />
+        <path d="M492 0C560 76 637 141 724 194C774 225 819 245 860 254" stroke="currentColor" strokeWidth="1" />
+        <path d="M772 286C810 267 840 273 860 300" stroke="currentColor" strokeWidth="1" />
+      </svg>
+
+      <div className="relative z-10 flex flex-1 px-5 pb-[8.5rem] pt-[5.25rem] sm:px-8 md:px-[4.75rem] md:pb-[9.5rem] md:pt-[5.4rem]">
+        <div className="relative z-20 mt-[1.8rem] w-full max-w-[41rem] md:mt-[3.1rem] lg:mt-[3.65rem]">
+          <p className="mb-[1.9rem] text-[12px] font-semibold uppercase leading-none tracking-[0.42em] text-accent">
+            ESTUDIO DIGITAL
+          </p>
+
+          <h1 className="text-[44px] font-normal leading-[1.03] text-foreground sm:text-[56px] md:text-[62px] lg:text-[64px] xl:text-[66px]">
+            <span className="block">Claridad digital</span>
+            <span className="block">para marcas que</span>
+            <span className="block">quieren funcionar</span>
+            <span className="block">
+              mejor<span className="text-accent">.</span>
+            </span>
+          </h1>
+
+          <p className="mt-[1.8rem] max-w-[36rem] text-[19px] font-normal leading-[1.48] text-foreground md:text-[22px]">
+            Dise&ntilde;amos webs, productos y sistemas digitales que comunican
+            con precisi&oacute;n, mejoran la experiencia y ordenan la operaci&oacute;n.
+          </p>
+
+          <div className="mt-[2.45rem] flex flex-col gap-4 sm:flex-row sm:items-center sm:gap-[2.65rem]">
+            <Link
+              href="#contacto"
+              className="inline-flex min-h-[3.8rem] w-fit items-center justify-center gap-[1.35rem] rounded-[0.12rem] bg-accent px-[1.65rem] text-[18px] font-medium leading-none text-white transition-colors hover:bg-accent-light focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background md:min-w-[16.2rem] md:text-[19px]"
+            >
+              Agendar diagn&oacute;stico
+              <ArrowRight aria-hidden="true" className="h-6 w-6" strokeWidth={1.6} />
+            </Link>
+
+            <Link
+              href="#casos"
+              className="inline-flex w-fit items-center justify-center gap-[1rem] rounded-button py-2 text-[18px] font-medium leading-none text-foreground transition-colors hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background md:text-[19px]"
+            >
+              Ver casos
+              <ArrowRight aria-hidden="true" className="h-6 w-6 text-accent" strokeWidth={1.6} />
+            </Link>
+          </div>
+
+          <div className="mt-[2.65rem] flex max-w-[34rem] items-center gap-[1.95rem] border-t border-border pt-[1.75rem]">
+            <Image
+              src="/brand/isotipo-coral.png"
+              alt=""
+              width={1016}
+              height={686}
+              className="h-auto w-[2.8rem] shrink-0"
             />
-          ))}
-        </motion.h1>
-      </motion.div>
+            <p className="text-[16px] font-normal leading-tight text-foreground md:text-[19px]">
+              Web &middot; Producto digital &middot; UX/UI &middot; Sistemas de dise&ntilde;o
+            </p>
+          </div>
+        </div>
+
+        <Image
+          src="/brand/hero-cora-devices.png"
+          alt="Mockups de laptop y movil con una interfaz digital Coralab"
+          width={1448}
+          height={1086}
+          priority
+          sizes="(min-width: 1280px) 68vw, (min-width: 768px) 62vw, 100vw"
+          className="pointer-events-none absolute bottom-0 right-[-8.5rem] z-10 hidden h-auto w-[59rem] max-w-none object-contain md:block lg:right-[-6.25rem] lg:w-[63rem] xl:right-[-4.25rem] xl:w-[66rem] 2xl:right-[-1rem] 2xl:w-[69rem]"
+        />
+      </div>
     </section>
   );
 }

@@ -1,8 +1,9 @@
 "use client";
 
+import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useId, useState } from "react";
-import { ArrowUpRight, Menu, X } from "lucide-react";
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { ArrowRight, Menu, X } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 
@@ -18,20 +19,25 @@ interface NavbarProps {
 }
 
 const defaultItems: NavItem[] = [
-  { label: "Trabajo", href: "#trabajo" },
-  { label: "Nosotros", href: "#nosotros" },
   { label: "Servicios", href: "#servicios" },
+  { label: "Proceso", href: "#proceso" },
+  { label: "Casos", href: "#casos" },
+  { label: "Nosotros", href: "#funcion" },
 ];
 
-const MENU_EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
+const logo = {
+  alt: "Coralab",
+  height: 186,
+  src: "/brand/logo-horizontal-dark.png",
+  width: 820,
+};
 
 export function Navbar({
   items = defaultItems,
-  ctaHref = "#contact",
+  ctaHref = "#contacto",
   className,
 }: NavbarProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const shouldReduceMotion = Boolean(useReducedMotion());
   const menuId = useId();
 
   const closeMenu = () => setIsOpen(false);
@@ -49,15 +55,6 @@ export function Navbar({
   }, []);
 
   useEffect(() => {
-    const handleHashChange = () => {
-      closeMenu();
-    };
-
-    window.addEventListener("hashchange", handleHashChange);
-    return () => window.removeEventListener("hashchange", handleHashChange);
-  }, []);
-
-  useEffect(() => {
     const desktopMedia = window.matchMedia("(min-width: 768px)");
     const handleViewportChange = (event: MediaQueryListEvent) => {
       if (event.matches) {
@@ -70,143 +67,101 @@ export function Navbar({
   }, []);
 
   return (
-    <header className="pointer-events-none fixed inset-x-0 top-4 z-50 flex flex-col items-center px-4 sm:top-6">
-      <motion.nav
+    <header
+      className={cn(
+        "sticky top-0 z-50 w-full border-b border-line-soft bg-background",
+        className,
+      )}
+    >
+      <nav
         aria-label="Navegacion principal"
-        initial={false}
-        animate={{
-          borderRadius: isOpen ? 32 : 999,
-          y: isOpen ? 2 : 0,
-        }}
-        transition={{
-          duration: shouldReduceMotion ? 0.01 : 0.28,
-          ease: MENU_EASE,
-        }}
-        className={cn(
-          "pointer-events-auto relative flex w-full max-w-76 flex-col items-center rounded-[999px] border border-foreground/5 bg-surface/75 shadow-[0_8px_10px_rgba(0,0,0,0.30)] backdrop-blur-2xl sm:max-w-max",
-          className,
-        )}
+        className="mx-auto grid min-h-20 w-full grid-cols-[1fr_auto] items-center gap-6 px-4 sm:px-5 md:min-h-28 md:grid-cols-[1fr_auto_1fr] lg:px-[88px]"
       >
-        <div className="flex w-full items-center justify-between gap-4 p-1.5 pl-4 sm:pl-6 md:gap-10">
-          <a
-            href="#top"
-            className="font-title shrink-0 rounded-full text-lg font-bold tracking-tight text-foreground transition-colors hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent sm:text-xl"
-            onClick={closeMenu}
-          >
-            Coralab.
-          </a>
+        <Link
+          href="/"
+          aria-label="Ir al inicio"
+          className="flex w-fit rounded-button focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+          onClick={closeMenu}
+        >
+          <Image
+            src={logo.src}
+            alt={logo.alt}
+            width={logo.width}
+            height={logo.height}
+            priority
+            className="h-auto w-[142px] md:w-[168px]"
+          />
+        </Link>
 
-          <ul className="hidden items-center md:flex">
-            {items.map((item) => (
-              <li key={item.href}>
-                <a
-                  href={item.href}
-                  className="font-body rounded-full px-4 py-2 text-[10px] font-bold uppercase tracking-[0.25em] text-foreground/60 transition-colors hover:text-foreground focus-visible:outline-none"
-                >
-                  {item.label}
-                </a>
-              </li>
-            ))}
-          </ul>
-
-          <div className="flex items-center gap-2">
-            <a
-              href={ctaHref}
-              onClick={closeMenu}
-              className="font-body group flex min-h-10 items-center justify-center gap-2 rounded-full bg-foreground px-4 text-[10px] font-bold uppercase tracking-[0.22em] text-background transition-all hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background sm:min-h-11 sm:px-6 sm:tracking-[0.25em]"
-            >
-              Hablemos
-              <ArrowUpRight
-                size={14}
-                className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
-              />
-            </a>
-
-            <button
-              type="button"
-              onClick={toggleMenu}
-              className="flex h-10 w-10 items-center justify-center rounded-full text-foreground transition-colors hover:bg-foreground/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent md:hidden"
-              aria-controls={menuId}
-              aria-expanded={isOpen}
-              aria-haspopup="menu"
-              aria-label={isOpen ? "Cerrar menu" : "Abrir menu"}
-            >
-              <motion.span
-                animate={{ rotate: isOpen ? 180 : 0, scale: isOpen ? 0.92 : 1 }}
-                transition={{
-                  duration: shouldReduceMotion ? 0.01 : 0.22,
-                  ease: MENU_EASE,
-                }}
-                className="flex items-center justify-center"
+        <ul className="hidden items-center justify-center gap-12 md:flex lg:gap-16">
+          {items.map((item) => (
+            <li key={item.href}>
+              <Link
+                href={item.href}
+                className="rounded-button px-1 py-2 text-base font-medium leading-none text-foreground transition-colors hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background"
               >
-                {isOpen ? <X size={20} /> : <Menu size={20} />}
-              </motion.span>
-            </button>
-          </div>
+                {item.label}
+              </Link>
+            </li>
+          ))}
+        </ul>
+
+        <div className="hidden justify-end md:flex">
+          <Link
+            href={ctaHref}
+            className="group inline-flex min-h-12 items-center justify-center gap-6 rounded-button bg-accent px-6 text-base font-semibold leading-none text-white transition-colors hover:bg-accent-light focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background lg:px-7"
+          >
+            Agendar diagn&oacute;stico
+            <ArrowRight
+              aria-hidden="true"
+              className="h-5 w-5 transition-transform group-hover:translate-x-1"
+              strokeWidth={1.8}
+            />
+          </Link>
         </div>
 
-        <AnimatePresence initial={false}>
-          {isOpen && (
-            <motion.div
-              id={menuId}
-              role="menu"
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: "auto", opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
-              transition={{
-                duration: shouldReduceMotion ? 0.01 : 0.24,
-                ease: MENU_EASE,
-              }}
-              className="w-full overflow-hidden md:hidden"
-            >
-              <motion.ul
-                initial="closed"
-                animate="open"
-                exit="closed"
-                variants={{
-                  open: {
-                    transition: {
-                      delayChildren: 0.03,
-                      staggerChildren: 0.05,
-                    },
-                  },
-                  closed: {
-                    transition: {
-                      staggerChildren: 0.03,
-                      staggerDirection: -1,
-                    },
-                  },
-                }}
-                className="flex flex-col items-center gap-2 px-3 pb-4 pt-1"
+        <button
+          type="button"
+          onClick={toggleMenu}
+          className="flex h-11 w-11 items-center justify-center justify-self-end rounded-button border border-border bg-surface text-foreground transition-colors hover:border-accent hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background md:hidden"
+          aria-controls={menuId}
+          aria-expanded={isOpen}
+          aria-label={isOpen ? "Cerrar menu" : "Abrir menu"}
+        >
+          {isOpen ? <X size={20} /> : <Menu size={20} />}
+        </button>
+      </nav>
+
+      <div
+        id={menuId}
+        className={cn(
+          "grid border-t border-line-soft bg-background transition-[grid-template-rows] duration-200 md:hidden",
+          isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]",
+        )}
+      >
+        <div className="overflow-hidden">
+          <div className="mx-auto flex w-full flex-col gap-2 px-3 py-5 sm:px-4 lg:px-4">
+            {items.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                onClick={closeMenu}
+                className="rounded-button px-1 py-3 text-xl font-medium text-foreground transition-colors hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background"
               >
-                {items.map((item) => (
-                  <motion.li
-                    key={item.href}
-                    variants={{
-                      closed: { opacity: 0, y: -4 },
-                      open: { opacity: 1, y: 0 },
-                    }}
-                    transition={{
-                      duration: shouldReduceMotion ? 0.01 : 0.2,
-                      ease: MENU_EASE,
-                    }}
-                    className="w-full"
-                  >
-                    <a
-                      href={item.href}
-                      role="menuitem"
-                      onClick={closeMenu}
-                      className="font-body block w-full rounded-2xl px-4 py-3 text-center text-[11px] font-bold uppercase tracking-[0.25em] text-foreground/80 transition-colors hover:bg-foreground/5 hover:text-foreground active:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
-                    >
-                      {item.label}
-                    </a>
-                  </motion.li>
-                ))}
-              </motion.ul>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </motion.nav>
+                {item.label}
+              </Link>
+            ))}
+            <Link
+              href={ctaHref}
+              onClick={closeMenu}
+              className="mt-3 inline-flex min-h-12 items-center justify-center gap-4 rounded-button bg-accent px-5 text-base font-semibold text-white transition-colors hover:bg-accent-light focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+            >
+              Agendar diagn&oacute;stico
+              <ArrowRight aria-hidden="true" className="h-5 w-5" strokeWidth={1.8} />
+            </Link>
+          </div>
+        </div>
+      </div>
     </header>
   );
 }

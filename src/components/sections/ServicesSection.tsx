@@ -1,283 +1,187 @@
-"use client";
+import { ArrowRight, Infinity } from "lucide-react";
+import type { ReactNode } from "react";
 
-import { useEffect, useState, type ReactNode } from "react";
-import { motion, useReducedMotion, type Variants } from "framer-motion";
-import { Brush, Layers, Terminal, Wand2 } from "lucide-react";
+type Service = {
+  description: string;
+  id: string;
+  imageAlt: string;
+  imagePath: string;
+  mediaTone: "browser" | "dashboard" | "mobile" | "system";
+  title: ReactNode;
+};
 
-const desktopFadeUp: Variants = {
-  hidden: { opacity: 0, y: "var(--y-offset, 50px)" },
-  visible: {
-    opacity: 1,
-    y: "0px",
-    transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] },
+const services: Service[] = [
+  {
+    description: "Webs claras, rapidas y alineadas a la marca.",
+    id: "sitios-web",
+    imageAlt: "Preview de sitio web desarrollado por Coralab",
+    imagePath: "/services/sitios-web.webp",
+    mediaTone: "browser",
+    title: "Sitios web",
   },
-};
-
-const gentleFadeUp: Variants = {
-  hidden: { opacity: 0, y: 18 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] },
+  {
+    description: "Interfaces y herramientas para procesos reales.",
+    id: "producto-digital",
+    imageAlt: "Preview de dashboard de producto digital",
+    imagePath: "/services/producto-digital.webp",
+    mediaTone: "dashboard",
+    title: "Producto digital",
   },
-};
-
-const reducedFadeIn: Variants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { duration: 0.28, ease: "easeOut" },
+  {
+    description: "Experiencias intuitivas y decisiones mas simples.",
+    id: "ux-ui",
+    imageAlt: "Preview de pantallas moviles de experiencia UX/UI",
+    imagePath: "/services/ux-ui.webp",
+    mediaTone: "mobile",
+    title: "UX/UI",
   },
-};
+  {
+    description: "Bases consistentes para escalar productos y equipos.",
+    id: "sistemas-diseno",
+    imageAlt: "Preview de sistema de diseno Coralab",
+    imagePath: "/services/sistemas-diseno.webp",
+    mediaTone: "system",
+    title: <>Sistemas de dise&ntilde;o</>,
+  },
+];
 
-const desktopViewport = { once: true, margin: "-96px 0px -12% 0px" } as const;
-const gentleViewport = { once: true, margin: "0px 0px -16% 0px" } as const;
-
-type AnimatedServiceCardProps = {
-  children: ReactNode;
-  contentClassName: string;
-  decoration?: ReactNode;
-  shellClassName: string;
-  useGentleMotion: boolean;
-  useReducedMotionPath: boolean;
-};
-
-function AnimatedServiceCard({
-  children,
-  contentClassName,
-  decoration,
-  shellClassName,
-  useGentleMotion,
-  useReducedMotionPath,
-}: AnimatedServiceCardProps) {
-  const contentVariants = useReducedMotionPath ? reducedFadeIn : gentleFadeUp;
-
-  if (useGentleMotion) {
-    return (
-      <div className={shellClassName}>
-        {decoration}
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={gentleViewport}
-          variants={contentVariants}
-          style={{
-            willChange: useReducedMotionPath ? "opacity" : "transform, opacity",
-          }}
-          className={contentClassName}
-        >
-          {children}
-        </motion.div>
-      </div>
-    );
-  }
-
+function ServiceMediaSlot({
+  imageAlt,
+  imagePath,
+  mediaTone,
+}: Pick<Service, "imageAlt" | "imagePath" | "mediaTone">) {
   return (
-    <motion.div
-      initial="hidden"
-      whileInView="visible"
-      viewport={desktopViewport}
-      variants={desktopFadeUp}
-      style={{ willChange: "transform, opacity" }}
-      className={shellClassName}
+    <div
+      aria-label={imageAlt}
+      className="relative mt-[1.7rem] min-h-[11.9rem] overflow-hidden rounded-[0.38rem] border border-border bg-surface/70 sm:min-h-[13rem] lg:min-h-[12rem] xl:min-h-[13.8rem]"
+      data-expected-image={imagePath}
+      role="img"
     >
-      <div className={contentClassName}>{children}</div>
-      {decoration}
-    </motion.div>
+      <div className="absolute inset-x-0 top-0 h-7 border-b border-border bg-[#f2efec]">
+        <span className="absolute left-4 top-1/2 h-1.5 w-1.5 -translate-y-1/2 rounded-full bg-accent" />
+        <span className="absolute left-7 top-1/2 h-1.5 w-1.5 -translate-y-1/2 rounded-full bg-[#e1ddd9]" />
+        <span className="absolute left-10 top-1/2 h-1.5 w-1.5 -translate-y-1/2 rounded-full bg-[#e1ddd9]" />
+      </div>
+
+      <div className="absolute inset-x-0 bottom-0 top-7 bg-[linear-gradient(90deg,rgba(228,226,225,0.56)_1px,transparent_1px),linear-gradient(0deg,rgba(228,226,225,0.5)_1px,transparent_1px)] bg-[size:4.5rem_4.5rem]" />
+
+      {mediaTone === "browser" ? (
+        <div className="absolute left-[9%] top-[37%] h-[34%] w-[63%] rounded-[0.32rem] border border-border bg-background/85" />
+      ) : null}
+
+      {mediaTone === "dashboard" ? (
+        <>
+          <div className="absolute bottom-0 left-0 top-7 w-[25%] border-r border-border bg-background/80" />
+          <div className="absolute left-[31%] top-[35%] h-[21%] w-[17%] rounded-[0.3rem] border border-border bg-background/85" />
+          <div className="absolute left-[51%] top-[35%] h-[21%] w-[17%] rounded-[0.3rem] border border-border bg-background/85" />
+          <div className="absolute left-[31%] right-[8%] top-[66%] h-px bg-accent" />
+          <div className="absolute left-[31%] right-[8%] top-[75%] h-px bg-accent/70" />
+        </>
+      ) : null}
+
+      {mediaTone === "mobile" ? (
+        <>
+          <div className="absolute bottom-[-1.15rem] left-[17%] h-[11rem] w-[7.2rem] rounded-[1rem] border border-border bg-background/90" />
+          <div className="absolute bottom-[-0.8rem] right-[16%] h-[11rem] w-[7.2rem] rounded-[1rem] border border-border bg-background/90" />
+        </>
+      ) : null}
+
+      {mediaTone === "system" ? (
+        <>
+          <div className="absolute left-[8%] top-[34%] h-[1.2rem] w-[44%] rounded-full bg-foreground/8" />
+          <div className="absolute left-[8%] top-[51%] flex gap-2">
+            <span className="h-7 w-7 rounded-[0.2rem] bg-accent" />
+            <span className="h-7 w-7 rounded-[0.2rem] bg-foreground" />
+            <span className="h-7 w-7 rounded-[0.2rem] bg-muted" />
+            <span className="h-7 w-7 rounded-[0.2rem] bg-border" />
+          </div>
+          <div className="absolute right-[9%] top-[38%] h-8 w-[29%] rounded-[0.22rem] bg-accent" />
+          <div className="absolute bottom-[18%] left-[8%] text-[2.1rem] leading-none text-foreground">
+            Ag
+          </div>
+        </>
+      ) : null}
+    </div>
   );
 }
 
-function subscribeToMediaQuery(query: MediaQueryList, listener: () => void) {
-  if (typeof query.addEventListener === "function") {
-    query.addEventListener("change", listener);
-    return () => query.removeEventListener("change", listener);
-  }
-
-  query.addListener(listener);
-  return () => query.removeListener(listener);
+function ServiceCard({ service }: { service: Service }) {
+  return (
+    <article className="flex min-h-[23rem] flex-col overflow-hidden rounded-[0.45rem] border border-border bg-background/35 p-[1.55rem] transition-colors duration-200 hover:border-accent/45 sm:p-[1.85rem] lg:min-h-[25rem] xl:min-h-[26.1rem] xl:p-[2.15rem]">
+      <Infinity
+        aria-hidden="true"
+        className="mb-[1.15rem] h-10 w-10 text-accent"
+        strokeWidth={1.9}
+      />
+      <h3 className="text-[27px] font-normal leading-[1.08] text-foreground md:text-[30px]">
+        {service.title}
+      </h3>
+      <p className="mt-[0.75rem] max-w-[18rem] text-[17px] leading-[1.42] text-foreground md:text-[18px]">
+        {service.description}
+      </p>
+      <ServiceMediaSlot
+        imageAlt={service.imageAlt}
+        imagePath={service.imagePath}
+        mediaTone={service.mediaTone}
+      />
+    </article>
+  );
 }
 
 export function ServicesSection() {
-  const shouldReduceMotion = Boolean(useReducedMotion());
-  const [preferGentleMobileMotion, setPreferGentleMobileMotion] =
-    useState(true);
-
-  useEffect(() => {
-    if (typeof window === "undefined") {
-      return;
-    }
-
-    const coarsePointerQuery = window.matchMedia("(pointer: coarse)");
-    const smallViewportQuery = window.matchMedia("(max-width: 767px)");
-
-    const updateMotionMode = () => {
-      setPreferGentleMobileMotion(
-        coarsePointerQuery.matches || smallViewportQuery.matches,
-      );
-    };
-
-    updateMotionMode();
-
-    const unsubscribeCoarse = subscribeToMediaQuery(
-      coarsePointerQuery,
-      updateMotionMode,
-    );
-    const unsubscribeViewport = subscribeToMediaQuery(
-      smallViewportQuery,
-      updateMotionMode,
-    );
-
-    return () => {
-      unsubscribeCoarse();
-      unsubscribeViewport();
-    };
-  }, []);
-
-  const useGentleMotion = shouldReduceMotion || preferGentleMobileMotion;
-  const sectionReveal = shouldReduceMotion
-    ? reducedFadeIn
-    : useGentleMotion
-      ? gentleFadeUp
-      : desktopFadeUp;
-
   return (
     <section
       id="servicios"
-      className="relative z-30 w-full rounded-t-[3rem] border-t border-foreground/5 bg-background pt-12 pb-24 md:rounded-t-[5rem] md:pb-32 -mt-12"
+      className="relative isolate w-full scroll-mt-20 overflow-hidden bg-background px-5 py-16 sm:px-8 md:scroll-mt-28 md:px-[4.75rem] lg:min-h-[calc(100svh-7rem)] lg:py-[4.1rem]"
     >
-      <div className="mx-auto max-w-7xl px-6 pt-12 md:px-8 md:pt-20">
-        <div className="relative z-10">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={useGentleMotion ? gentleViewport : desktopViewport}
-            variants={sectionReveal}
-            style={{
-              willChange:
-                shouldReduceMotion || useGentleMotion
-                  ? "opacity"
-                  : "transform, opacity",
-            }}
-            className="mb-16 max-w-4xl [--y-offset:0px] md:mb-28 md:[--y-offset:50px]"
+      <svg
+        aria-hidden="true"
+        className="pointer-events-none absolute bottom-[-15.5rem] left-[-12rem] z-0 hidden h-[37rem] w-[52rem] text-border opacity-85 md:block"
+        viewBox="0 0 840 596"
+        fill="none"
+      >
+        <circle cx="496" cy="470" r="214" stroke="currentColor" strokeWidth="1" />
+        <circle cx="496" cy="470" r="154" stroke="currentColor" strokeWidth="1" />
+        <path d="M0 596C108 506 183 413 224 318C270 212 230 153 104 142C63 138 28 124 0 99" stroke="currentColor" strokeWidth="1" />
+        <path d="M0 558C144 408 263 302 358 240C494 150 612 135 710 195C774 234 817 289 840 358" stroke="currentColor" strokeWidth="1" />
+      </svg>
+
+      <div className="relative z-10 mx-auto grid w-full max-w-[92rem] gap-10 lg:grid-cols-[0.92fr_1.65fr] lg:gap-[4.1rem]">
+        <div className="pt-0 lg:sticky lg:top-28 lg:h-fit lg:pt-[3.4rem]">
+          <p className="mb-[1.55rem] text-[12px] font-semibold uppercase leading-none tracking-[0.42em] text-accent">
+            SERVICIOS
+          </p>
+
+          <h2 className="max-w-[41rem] text-[45px] font-normal leading-[1.03] text-foreground sm:text-[60px] md:text-[72px] lg:text-[73px] xl:text-[76px]">
+            <span className="block">Dise&ntilde;o digital</span>
+            <span className="block">con estructura</span>
+            <span className="block">
+              y precisi&oacute;n<span className="text-accent">.</span>
+            </span>
+          </h2>
+
+          <p className="mt-[1.65rem] max-w-[36rem] text-[19px] font-normal leading-[1.5] text-foreground md:text-[22px] lg:mt-[2rem]">
+            Creamos entornos digitales pensados para comunicar mejor, funcionar
+            mejor y crecer con m&aacute;s claridad.
+          </p>
+
+          <a
+            href="#contacto"
+            className="group mt-[2.65rem] inline-flex w-fit items-center justify-center gap-[1.05rem] rounded-button py-2 text-[18px] font-medium leading-none text-accent transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background md:mt-[3rem] md:text-[19px]"
           >
-            <h2 className="mb-6 font-title text-5xl leading-[0.9] font-bold tracking-tight text-foreground sm:text-7xl md:mb-8 md:text-8xl lg:text-8xl">
-              Lo que usamos <br />
-              <span className="font-subtitle font-light italic text-accent">
-                para construir.
-              </span>
-            </h2>
-            <p className="font-subtitle text-xl leading-relaxed font-light italic text-foreground/60 md:text-3xl">
-              Herramientas y soluciones que utilizamos para llevar ideas a
-              digital.
-            </p>
-          </motion.div>
+            Ver servicios
+            <ArrowRight
+              aria-hidden="true"
+              className="h-6 w-6 transition-transform duration-200 group-hover:translate-x-1"
+              strokeWidth={1.6}
+            />
+          </a>
+        </div>
 
-          <div className="grid auto-rows-auto grid-cols-1 gap-6 md:grid-cols-3 md:gap-8 lg:auto-rows-[420px]">
-            <AnimatedServiceCard
-              useGentleMotion={useGentleMotion}
-              useReducedMotionPath={shouldReduceMotion}
-              shellClassName="relative flex flex-col justify-between overflow-hidden rounded-3xl border border-foreground/5 bg-surface p-8 transition-all duration-700 group md:col-span-2 md:rounded-[3rem] md:p-12 md:hover:border-foreground/10 md:hover:shadow-xl lg:p-16 [--y-offset:0px] md:[--y-offset:50px]"
-              contentClassName="relative z-10 flex h-full flex-col justify-between"
-              decoration={
-                <Terminal className="absolute right-[-5%] bottom-[-10%] h-64 w-64 -rotate-12 text-foreground opacity-[0.02] transition-all duration-700 sm:h-72 sm:w-72 md:h-[450px] md:w-[450px] md:group-hover:scale-110 md:group-hover:opacity-[0.04]" />
-              }
-            >
-              <div className="flex items-start justify-between">
-                <div className="flex h-14 w-14 items-center justify-center rounded-full border border-foreground/5 bg-background transition-transform duration-500 md:group-hover:scale-110">
-                  <Terminal className="h-6 w-6 text-accent" />
-                </div>
-                <span className="font-body rounded-full border border-foreground/10 px-4 py-1.5 text-[10px] font-bold tracking-[0.3em] text-foreground/60 uppercase">
-                  Engineering
-                </span>
-              </div>
-              <div className="mt-32 md:mt-0">
-                <h4 className="mb-4 font-subtitle text-4xl font-bold tracking-tighter text-foreground md:text-5xl lg:text-6xl">
-                  Páginas web rápidas
-                </h4>
-                <p className="font-body max-w-md text-lg italic text-foreground/60 md:text-xl">
-                  Sitios simples y claros pensados para mostrar tu negocio y
-                  generar clientes.
-                </p>
-              </div>
-            </AnimatedServiceCard>
-
-            <AnimatedServiceCard
-              useGentleMotion={useGentleMotion}
-              useReducedMotionPath={shouldReduceMotion}
-              shellClassName="group relative flex flex-col justify-between overflow-hidden rounded-3xl bg-accent p-8 text-background transition-transform duration-500 md:rounded-[3rem] md:p-12 md:hover:-translate-y-2 md:hover:shadow-2xl lg:p-16 [--y-offset:0px] md:[--y-offset:50px]"
-              contentClassName="relative z-10 flex h-full flex-col justify-between"
-              decoration={
-                <div className="pointer-events-none absolute inset-0 bg-linear-to-t from-foreground/10 to-transparent opacity-0 transition-opacity duration-700 md:group-hover:opacity-100" />
-              }
-            >
-              <div className="flex items-start justify-between">
-                <Wand2 className="h-10 w-10 opacity-80 transition-transform duration-700 md:h-12 md:w-12 md:group-hover:scale-110 md:group-hover:rotate-12 lg:h-12 lg:w-12" />
-                <span className="font-body rounded-full border border-background/20 px-4 py-1.5 text-[10px] font-bold tracking-[0.3em] text-background/80 uppercase">
-                  Design
-                </span>
-              </div>
-              <div className="mt-32 md:mt-0">
-                <h4 className="mb-4 font-subtitle text-4xl leading-none font-bold tracking-tighter md:text-5xl">
-                  Diseño <br />
-                  web
-                </h4>
-                <p className="font-body text-lg italic text-background/80 md:text-xl">
-                  Interfaces limpias y funcionales que hacen fácil entender tu
-                  negocio.
-                </p>
-              </div>
-            </AnimatedServiceCard>
-
-            <AnimatedServiceCard
-              useGentleMotion={useGentleMotion}
-              useReducedMotionPath={shouldReduceMotion}
-              shellClassName="group relative flex flex-col justify-between overflow-hidden rounded-3xl border border-foreground/5 bg-surface p-8 transition-all duration-700 md:rounded-[3rem] md:p-12 md:hover:border-foreground/10 md:hover:shadow-xl lg:p-16 [--y-offset:0px] md:[--y-offset:50px]"
-              contentClassName="relative z-10 flex h-full flex-col justify-between"
-            >
-              <div className="flex items-start justify-between">
-                <Layers className="h-10 w-10 text-accent transition-transform duration-700 md:h-12 md:w-12 md:group-hover:scale-110 lg:h-12 lg:w-12" />
-                <span className="font-body rounded-full border border-foreground/10 px-4 py-1.5 text-[10px] font-bold tracking-[0.3em] text-foreground/60 uppercase">
-                  Strategy
-                </span>
-              </div>
-              <div className="mt-32 md:mt-0">
-                <h4 className="mb-4 font-subtitle text-4xl font-bold tracking-tighter text-foreground md:text-5xl">
-                  Estructura digital
-                </h4>
-                <p className="font-body text-lg italic text-foreground/60 md:text-xl">
-                  Organización clara de tu información para que tus clientes
-                  entiendan qué haces.
-                </p>
-              </div>
-            </AnimatedServiceCard>
-
-            <AnimatedServiceCard
-              useGentleMotion={useGentleMotion}
-              useReducedMotionPath={shouldReduceMotion}
-              shellClassName="group relative flex flex-col items-start justify-between overflow-hidden rounded-3xl border border-foreground/5 bg-surface p-8 text-foreground transition-all duration-700 md:col-span-2 md:flex-row md:items-center md:rounded-[3rem] md:p-12 md:hover:border-foreground/10 md:hover:shadow-xl lg:p-16 [--y-offset:0px] md:[--y-offset:50px]"
-              contentClassName="relative z-10"
-              decoration={
-                <div className="pointer-events-none absolute right-[-20%] bottom-[-20%] flex h-full w-64 items-center justify-center opacity-[0.02] transition-all duration-1000 md:right-[0%] md:top-[-20%] md:w-1/2 md:group-hover:scale-110 md:group-hover:opacity-[0.04]">
-                  <Brush className="h-80 w-80 -rotate-12 md:h-[500px] md:w-[500px]" />
-                </div>
-              }
-            >
-              <div>
-                <div className="mb-8 inline-block md:mb-12">
-                  <span className="font-body rounded-full border border-foreground/10 px-4 py-1.5 text-[10px] font-bold tracking-[0.3em] text-foreground/60 uppercase">
-                    Branding
-                  </span>
-                </div>
-                <h4 className="mb-4 font-subtitle text-4xl font-bold tracking-tighter text-foreground md:mb-6 md:text-5xl lg:text-7xl">
-                  Automatización básica
-                </h4>
-                <p className="font-body relative z-10 max-w-md text-lg italic text-foreground/60 md:text-xl">
-                  Soluciones simples para ahorrar tiempo en procesos como
-                  contacto o citas.
-                </p>
-              </div>
-            </AnimatedServiceCard>
-          </div>
+        <div className="grid gap-4 sm:grid-cols-2 lg:gap-[1.05rem]">
+          {services.map((service) => (
+            <ServiceCard key={service.id} service={service} />
+          ))}
         </div>
       </div>
     </section>

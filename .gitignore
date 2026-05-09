@@ -43,3 +43,11 @@ next-env.d.ts
 # playwright
 .playwright/
 .playwright-cli/
+
+# agent-local instructions and generated QA artifacts
+AGENTS.md
+agents.md
+agent.md
+CLAUDE.md
+claude.md
+output/
