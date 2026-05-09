@@ -28,7 +28,7 @@ const defaultItems: NavItem[] = [
 const logo = {
   alt: "Coralab",
   height: 186,
-  src: "/brand/logo-horizontal-dark.png",
+  src: "/brand/logo-horizontal-blue.svg",
   width: 820,
 };
 

@@ -62,7 +62,7 @@ const caseStudies: CaseStudy[] = [
 
 function CaseBadge({ children }: { children: string }) {
   return (
-    <span className="inline-flex min-h-8 items-center rounded-full border border-accent/65 bg-surface/45 px-4 text-[12px] font-medium leading-none text-accent">
+    <span className="inline-flex min-h-7 items-center rounded-full border border-accent/65 bg-surface/45 px-3 text-[11px] font-medium leading-none text-accent">
       {children}
     </span>
   );
@@ -101,19 +101,19 @@ function CaseCard({
       <div
         className={
           isFeatured
-            ? "relative z-10 px-6 pt-7 sm:px-8 md:px-10 md:pt-10"
-            : "relative z-10 px-6 pt-7 sm:px-8"
+            ? "relative z-10 px-3.5 pt-3.5 sm:px-4 sm:pt-4 md:px-5 md:pt-5"
+            : "relative z-10 px-3.5 pt-3.5 sm:px-4 sm:pt-4"
         }
       >
         <div className={study.contentClassName}>
-          <p className="text-[13px] font-medium leading-none text-accent">
+          <p className="text-[11px] font-medium leading-none text-accent">
             {study.number}
           </p>
           <h3
             className={
               isFeatured
-                ? "mt-6 text-[42px] font-normal leading-none text-foreground md:text-[48px]"
-                : "mt-5 text-[34px] font-normal leading-none text-foreground md:text-[38px]"
+                ? "mt-3 text-[34px] font-normal leading-none text-foreground md:text-[40px]"
+                : "mt-2.5 text-[26px] font-normal leading-none text-foreground md:text-[30px]"
             }
           >
             {study.title}
@@ -121,13 +121,13 @@ function CaseCard({
           <p
             className={
               isFeatured
-                ? "mt-4 text-[16px] leading-[1.38] text-muted md:text-[17px]"
-                : "mt-4 text-[14px] leading-[1.32] text-muted md:text-[15px]"
+                ? "mt-2.5 text-[14px] leading-[1.25] text-muted md:text-[15px]"
+                : "mt-2 text-[13px] leading-[1.22] text-muted md:text-[14px]"
             }
           >
             {study.description}
           </p>
-          <div className="mt-5">
+          <div className="mt-3">
             <CaseBadge>{study.tag}</CaseBadge>
           </div>
         </div>
@@ -144,16 +144,15 @@ export function WorkSection() {
       id="casos"
       className="relative isolate w-full scroll-mt-20 overflow-hidden bg-background px-5 py-12 sm:px-8 md:scroll-mt-[5.5rem] md:px-[4.75rem] lg:min-h-[calc(100svh-5.5rem)] lg:py-[3.4rem]"
     >
-      <div className="relative z-10 mx-auto grid w-full max-w-[92rem] gap-6 lg:grid-cols-[0.82fr_0.95fr_0.9fr] lg:items-start lg:gap-3">
+      <div className="relative z-10 mx-auto grid w-full max-w-[92rem] gap-6 lg:grid-cols-[0.90fr_0.87fr_0.83fr] lg:items-start lg:gap-3">
         <div className="relative flex flex-col pb-10 pt-2 lg:min-h-[43.5rem] lg:pb-0 lg:pt-8">
           <p className="mb-[1.45rem] text-[13px] font-medium uppercase leading-none text-accent">
             CASOS DESTACADOS
           </p>
 
-          <h2 className="max-w-[28rem] text-[42px] font-normal leading-[1.02] text-foreground sm:text-[54px] md:text-[60px] lg:text-[58px] xl:text-[64px]">
+          <h2 className="max-w-[28rem] text-[30px] font-normal leading-[1.02] text-foreground sm:text-[40px] md:text-[48px] lg:text-[48px] xl:text-[50px]">
             <span className="block">Proyectos</span>
-            <span className="block">pensados para</span>
-            <span className="block">funcionar y</span>
+            <span className="block">para funcionar y</span>
             <span className="block">
               distinguirse<span className="text-accent">.</span>
             </span>

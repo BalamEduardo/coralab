@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { LenisProvider } from "@/components/LenisProvider";
 import { sans } from "@/lib/fonts";
 import "./globals.css";
 
@@ -127,7 +126,7 @@ export default function RootLayout({
             __html: JSON.stringify(structuredData).replace(/</g, "\\u003c"),
           }}
         />
-        <LenisProvider>{children}</LenisProvider>
+        {children}
       </body>
     </html>
   );

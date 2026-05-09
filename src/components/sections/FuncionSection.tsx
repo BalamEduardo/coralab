@@ -73,7 +73,7 @@ export function FuncionSection() {
               CLARIDAD + FUNCI&Oacute;N
             </p>
 
-            <h2 className="max-w-[33rem] text-[34px] font-normal leading-[1.03] text-foreground sm:text-[46px] md:text-[54px] lg:text-[55px] xl:text-[56px]">
+            <h2 className="max-w-[33rem] text-[30px] font-normal leading-[1.03] text-foreground sm:text-[40px] md:text-[48px] lg:text-[48px] xl:text-[50px]">
               <span className="block">Lo digital debe</span>
               <span className="block">comunicar y</span>
               <span className="block">

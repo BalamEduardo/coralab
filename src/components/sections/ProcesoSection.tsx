@@ -80,7 +80,7 @@ export function ProcesoSection() {
             PROCESO
           </p>
 
-          <h2 className="text-[34px] font-normal leading-[1.03] text-foreground sm:text-[46px] md:text-[54px] lg:text-[55px] xl:text-[56px]">
+          <h2 className="text-[30px] font-normal leading-[1.03] text-foreground sm:text-[40px] md:text-[48px] lg:text-[48px] xl:text-[50px]">
             De la estrategia a la experiencia
             <span className="text-accent">.</span>
           </h2>
